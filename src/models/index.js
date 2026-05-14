@@ -1,43 +1,43 @@
 const sequelize = require('../config/db');
 
 // Importar Modelos
-const Usuario = require('./Usuarios');
-const Vehiculo = require('./Vehiculos');
-const ParkingLog = require('./ControlAccesos');
-const ParkingCategory = require('./CategoriaEspacios');
-const Role = require('./Roles');
-const Carrera = require('./Carreras');
-const Color = require('./Colores');
-const TipoVehiculo = require('./TipoVehiculos');
+const Usuarios = require('./Usuarios');
+const Vehiculos = require('./Vehiculos');
+const ControlAccesos = require('./ControlAccesos');
+const CategoriaEspacios = require('./CategoriaEspacios');
+const Roles = require('./Roles');
+const Carreras = require('./Carreras');
+const Colores = require('./Colores');
+const TipoVehiculos = require('./TipoVehiculos');
 
 // --- RELACIONES ---
 
 // Usuarios
-Usuario.belongsTo(Role, { foreignKey: 'roleId' });
-Usuario.belongsTo(Carrera, { foreignKey: 'carreraId' });
+Usuarios.belongsTo(Roles, { foreignKey: 'roleId' });
+Usuarios.belongsTo(Carreras, { foreignKey: 'carreraId' });
 
 // Vehículos
-Vehiculo.belongsTo(Usuario, { foreignKey: 'userId' });
-Usuario.hasMany(Vehiculo, { foreignKey: 'userId' });
+Vehiculos.belongsTo(Usuarios, { foreignKey: 'userId' });
+Usuarios.hasMany(Vehiculos, { foreignKey: 'userId' });
 
-Vehiculo.belongsTo(Color, { foreignKey: 'colorId' });
-Vehiculo.belongsTo(TipoVehiculo, { foreignKey: 'tipoVehiculoId' });
+Vehiculos.belongsTo(Colores, { foreignKey: 'colorId' });
+Vehiculos.belongsTo(TipoVehiculos, { foreignKey: 'tipoVehiculoId' });
 
 // Logs (El flujo del estacionamiento)
-ParkingLog.belongsTo(Vehiculo, { foreignKey: 'vehicleId' });
-Vehiculo.hasMany(ParkingLog, { foreignKey: 'vehicleId' });
+ControlAccesos.belongsTo(Vehiculos, { foreignKey: 'vehicleId' });
+Vehiculos.hasMany(ControlAccesos, { foreignKey: 'vehicleId' });
 
-ParkingLog.belongsTo(ParkingCategory, { foreignKey: 'categoryId' });
-ParkingCategory.hasMany(ParkingLog, { foreignKey: 'categoryId' });
+ControlAccesos.belongsTo(CategoriaEspacios, { foreignKey: 'categoryId' });
+CategoriaEspacios.hasMany(ControlAccesos, { foreignKey: 'categoryId' });
 
 module.exports = {
   sequelize,
-  Usuario,
-  Vehiculo,
-  ParkingLog,
-  ParkingCategory,
-  Role,
-  Carrera,
-  Color,
-  TipoVehiculo
+  Usuarios,
+  Vehiculos,
+  ControlAccesos,
+  CategoriaEspacios,
+  Roles,
+  Carreras,
+  Colores,
+  TipoVehiculos
 };
