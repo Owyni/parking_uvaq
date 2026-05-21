@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken');
 const generateAccessToken = (userData) => {
     const accessToken = jwt.sign(
         {
-            user: userData.user
+            user: userData.matricula,
+            nombre: userData.name
         },
         process.env.SECRET_WORD,
         {
@@ -22,6 +23,7 @@ const verifyAccessToken = (req, res, next) => {
     try {
         const decoded = jwt.verify(token.split(' ')[1], process.env.SECRET_WORD);
         req.user = decoded;
+        req.matricula = decoded.user;
         next();
     } catch (error) {
         return res.status(401).json({ message: 'Token de Acceso inválido' });

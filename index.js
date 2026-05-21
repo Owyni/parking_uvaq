@@ -2,16 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const sequelize = require('./src/config/db');
 
-// Modelos
-const Vehiculo = require('./src/models/Vehiculos');
-const Usuario = require('./src/models/Usuarios');
-const ParkingLog = require('./src/models/ControlAccesos');
-const ParkingCategory = require('./src/models/CategoriaEspacios');
-const Role = require('./src/models/Roles');
-const Carrera = require('./src/models/Carreras');
-const Color = require('./src/models/Colores');
-const TipoVehiculo = require('./src/models/TipoVehiculos');
-
 // Sincronizar modelos y relaciones
 require('./src/models');
 
@@ -20,6 +10,17 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = 3000;
+
+// --- CONFIGURACIÓN DE CORS ---
+const corsOptions = {
+  origin: 'http://localhost:4321', // URL exacta donde corre tu frontend de Astro
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos para el estacionamiento
+  allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados que permites recibir
+  optionsSuccessStatus: 200 // Algunas versiones de navegadores antiguos fallan con el 204
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
 
 sequelize.sync({ alter: true })
   .then(() => {
