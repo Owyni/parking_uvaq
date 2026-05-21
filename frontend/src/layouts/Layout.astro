@@ -1,0 +1,117 @@
+---
+// src/layouts/Layout.astro
+import '../styles/global.css';
+const { title } = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} - UVAQ Parking</title>
+    <!-- Google Fonts: Inter para un look moderno y profesional -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+
+  <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen font-sans text-gray-800 antialiased">
+    
+    <!-- Navbar con gradiente, efecto glassmorphism y mejor espaciado -->
+    <nav class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white shadow-xl sticky top-0 z-50 backdrop-blur-sm">
+      <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+        <!-- Logo con icono decorativo -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm border border-white/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h8m-8 4h8m-4 4v4m-6-4h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-xl font-bold tracking-wide">UVAQ Parking</h1>
+            <p class="text-xs text-blue-200 font-light tracking-wider uppercase">Sistema de Control</p>
+          </div>
+        </div>
+
+        <!-- Navegación con indicadores activos y hover mejorado -->
+        <div class="flex items-center gap-1">
+          <a href="/dashboard" class="relative px-4 py-2 rounded-lg text-sm font-medium text-blue-100 hover:text-white hover:bg-white/10 transition-all duration-300 ease-in-out group">
+            <span class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
+              Dashboard
+            </span>
+            <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-blue-300 rounded-full group-hover:w-3/4 transition-all duration-300"></span>
+          </a>
+          <a href="/registro" class="relative px-4 py-2 rounded-lg text-sm font-medium text-blue-100 hover:text-white hover:bg-white/10 transition-all duration-300 ease-in-out group">
+            <span class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+              </svg>
+              Registrar Usuario
+            </span>
+            <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-blue-300 rounded-full group-hover:w-3/4 transition-all duration-300"></span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenedor principal con animación de entrada -->
+    <main class="max-w-7xl mx-auto px-6 py-10 animate-fade-in">
+      <slot />
+    </main>
+
+    <!-- Footer sutil -->
+    <footer class="mt-auto border-t border-gray-200/60 bg-white/40 backdrop-blur-sm">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <p class="text-xs text-gray-400">&copy; 2026 UVAQ Parking Control. Todos los derechos reservados.</p>
+        <p class="text-xs text-gray-400">Sistema de Gestión de Estacionamiento</p>
+      </div>
+    </footer>
+
+  </body>
+</html>
+
+<style is:global>
+  /* Fuente personalizada */
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Animación de entrada suave */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  /* Scrollbar personalizada */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+
+  /* Transiciones suaves globales para links */
+  a {
+    transition: all 0.2s ease;
+  }
+</style>
