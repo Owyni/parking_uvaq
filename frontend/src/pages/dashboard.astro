@@ -1,0 +1,593 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Dashboard">
+
+  <!-- Header del Dashboard -->
+  <section class="mb-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">Dashboard</h1>
+        <p class="text-sm text-gray-500 mt-1">Resumen general del sistema de estacionamiento</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="inline-flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-1.5">
+          <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span class="text-xs font-medium text-green-700">En línea</span>
+        </div>
+        <span class="text-xs text-gray-400" id="current-date">--/--/----</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarjetas de estadísticas principales -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+
+    <!-- Espacios Totales -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm shadow-gray-200/50 border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-300 group">
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+        </div>
+        <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">Total</span>
+      </div>
+      <p class="text-3xl font-bold text-gray-900">150</p>
+      <p class="text-sm text-gray-500 mt-1">Espacios Totales</p>
+    </div>
+
+    <!-- Espacios Disponibles -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm shadow-gray-200/50 border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-300 group">
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-11 h-11 rounded-xl bg-green-50 flex items-center justify-center group-hover:bg-green-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">Libres</span>
+      </div>
+      <p class="text-3xl font-bold text-gray-900">87</p>
+      <p class="text-sm text-gray-500 mt-1">Espacios Disponibles</p>
+      <div class="mt-3 w-full bg-gray-100 rounded-full h-1.5">
+        <div class="bg-green-500 h-1.5 rounded-full" style="width: 58%"></div>
+      </div>
+    </div>
+
+    <!-- Espacios Ocupados -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm shadow-gray-200/50 border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-300 group">
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center group-hover:bg-amber-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+        </div>
+        <span class="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">Ocupados</span>
+      </div>
+      <p class="text-3xl font-bold text-gray-900">63</p>
+      <p class="text-sm text-gray-500 mt-1">Espacios Ocupados</p>
+      <div class="mt-3 w-full bg-gray-100 rounded-full h-1.5">
+        <div class="bg-amber-500 h-1.5 rounded-full" style="width: 42%"></div>
+      </div>
+    </div>
+
+    <!-- Entradas Hoy -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm shadow-gray-200/50 border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-300 group">
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+          </svg>
+        </div>
+        <span class="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full">Hoy</span>
+      </div>
+      <p class="text-3xl font-bold text-gray-900">214</p>
+      <p class="text-sm text-gray-500 mt-1">Movimientos Hoy</p>
+      <p class="text-xs text-green-600 font-medium mt-2 flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+        +12% vs ayer
+      </p>
+    </div>
+
+  </section>
+
+  <!-- Sección principal: Gráfica + Actividad reciente -->
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+
+    <!-- Gráfica de ocupación (2 columnas) -->
+    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-gray-900">Ocupación por Hora</h2>
+          <p class="text-sm text-gray-500 mt-0.5">Distribución de vehículos durante el día</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="text-xs font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">Hoy</button>
+          <button class="text-xs font-medium text-white bg-blue-600 px-3 py-1.5 rounded-lg">Semana</button>
+          <button class="text-xs font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">Mes</button>
+        </div>
+      </div>
+
+      <!-- Gráfica placeholder -->
+      <div class="relative w-full h-56 md:h-64">
+        <!-- Barras de la gráfica -->
+        <div class="absolute inset-0 flex items-end justify-between gap-2 px-2">
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 20%"></div>
+            <span class="text-[10px] text-gray-400">6am</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 45%"></div>
+            <span class="text-[10px] text-gray-400">7am</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 75%"></div>
+            <span class="text-[10px] text-gray-400">8am</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-600 to-indigo-500 rounded-t-lg" style="height: 95%"></div>
+            <span class="text-[10px] text-gray-400">9am</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-600 to-indigo-500 rounded-t-lg" style="height: 90%"></div>
+            <span class="text-[10px] text-gray-400">10am</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 80%"></div>
+            <span class="text-[10px] text-gray-400">11am</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 60%"></div>
+            <span class="text-[10px] text-gray-400">12pm</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 50%"></div>
+            <span class="text-[10px] text-gray-400">1pm</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 65%"></div>
+            <span class="text-[10px] text-gray-400">2pm</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 70%"></div>
+            <span class="text-[10px] text-gray-400">3pm</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 55%"></div>
+            <span class="text-[10px] text-gray-400">4pm</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 35%"></div>
+            <span class="text-[10px] text-gray-400">5pm</span>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-1">
+            <div class="w-full bg-gradient-to-t from-blue-400 to-blue-300 rounded-t-lg" style="height: 15%"></div>
+            <span class="text-[10px] text-gray-400">6pm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actividad reciente (1 columna) -->
+    <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="text-lg font-bold text-gray-900">Actividad Reciente</h2>
+        <a href="#" class="text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors">Ver todo</a>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Entrada -->
+        <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+          <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />
+            </svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-900 truncate">ABC-1234</p>
+            <p class="text-xs text-gray-500">Entrada - Juan Pérez</p>
+          </div>
+          <span class="text-xs text-gray-400 flex-shrink-0">8:32 AM</span>
+        </div>
+
+        <!-- Salida -->
+        <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+          <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-900 truncate">XYZ-5678</p>
+            <p class="text-xs text-gray-500">Salida - María López</p>
+          </div>
+          <span class="text-xs text-gray-400 flex-shrink-0">8:28 AM</span>
+        </div>
+
+        <!-- Entrada -->
+        <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+          <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />
+            </svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-900 truncate">DEF-9012</p>
+            <p class="text-xs text-gray-500">Entrada - Carlos Ruiz</p>
+          </div>
+          <span class="text-xs text-gray-400 flex-shrink-0">8:15 AM</span>
+        </div>
+
+        <!-- Entrada -->
+        <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+          <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />
+            </svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-900 truncate">GHI-3456</p>
+            <p class="text-xs text-gray-500">Entrada - Ana Torres</p>
+          </div>
+          <span class="text-xs text-gray-400 flex-shrink-0">8:02 AM</span>
+        </div>
+
+        <!-- Salida -->
+        <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+          <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-900 truncate">JKL-7890</p>
+            <p class="text-xs text-gray-500">Salida - Roberto Díaz</p>
+          </div>
+          <span class="text-xs text-gray-400 flex-shrink-0">7:54 AM</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Tabla de vehículos actualmente en el estacionamiento -->
+  <section class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8 mb-10">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+      <div>
+        <h2 class="text-lg font-bold text-gray-900">Vehículos en Estacionamiento</h2>
+        <p class="text-sm text-gray-500 mt-0.5">Vehículos actualmente dentro del campus</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <!-- Buscador -->
+        <div class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input type="text" placeholder="Buscar placa..." class="pl-9 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all w-48" />
+        </div>
+        <!-- Filtro -->
+        <button class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 bg-gray-50 border border-gray-200 px-4 py-2 rounded-xl hover:bg-gray-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+          </svg>
+          Filtrar
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b border-gray-100">
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pl-4">Placa</th>
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Propietario</th>
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Tipo</th>
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Hora Entrada</th>
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Duración</th>
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pr-4">Estado</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+          <tr class="hover:bg-gray-50/50 transition-colors">
+            <td class="py-3.5 pl-4">
+              <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">ABC-1234</span>
+            </td>
+            <td class="py-3.5">
+              <div>
+                <p class="text-sm font-medium text-gray-900">Juan Pérez</p>
+                <p class="text-xs text-gray-400">Estudiante</p>
+              </div>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">Sedán</span>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">8:32 AM</span>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">2h 15min</span>
+            </td>
+            <td class="py-3.5 pr-4">
+              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                Activo
+              </span>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50/50 transition-colors">
+            <td class="py-3.5 pl-4">
+              <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">DEF-9012</span>
+            </td>
+            <td class="py-3.5">
+              <div>
+                <p class="text-sm font-medium text-gray-900">Carlos Ruiz</p>
+                <p class="text-xs text-gray-400">Docente</p>
+              </div>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">SUV</span>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">8:15 AM</span>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">2h 32min</span>
+            </td>
+            <td class="py-3.5 pr-4">
+              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                Activo
+              </span>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50/50 transition-colors">
+            <td class="py-3.5 pl-4">
+              <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">GHI-3456</span>
+            </td>
+            <td class="py-3.5">
+              <div>
+                <p class="text-sm font-medium text-gray-900">Ana Torres</p>
+                <p class="text-xs text-gray-400">Administrativo</p>
+              </div>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">Hatchback</span>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">8:02 AM</span>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">2h 45min</span>
+            </td>
+            <td class="py-3.5 pr-4">
+              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                Activo
+              </span>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50/50 transition-colors">
+            <td class="py-3.5 pl-4">
+              <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">MNO-4567</span>
+            </td>
+            <td class="py-3.5">
+              <div>
+                <p class="text-sm font-medium text-gray-900">Laura Méndez</p>
+                <p class="text-xs text-gray-400">Estudiante</p>
+              </div>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">Sedán</span>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">7:48 AM</span>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">2h 59min</span>
+            </td>
+            <td class="py-3.5 pr-4">
+              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
+                <span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+                Prolongado
+              </span>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50/50 transition-colors">
+            <td class="py-3.5 pl-4">
+              <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">PQR-8901</span>
+            </td>
+            <td class="py-3.5">
+              <div>
+                <p class="text-sm font-medium text-gray-900">Miguel Hernández</p>
+                <p class="text-xs text-gray-400">Docente</p>
+              </div>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">Pickup</span>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">7:30 AM</span>
+            </td>
+            <td class="py-3.5">
+              <span class="text-sm text-gray-600">3h 17min</span>
+            </td>
+            <td class="py-3.5 pr-4">
+              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                Activo
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
+      <p class="text-sm text-gray-500">Mostrando <span class="font-medium text-gray-700">1-5</span> de <span class="font-medium text-gray-700">63</span> vehículos</p>
+      <div class="flex items-center gap-1">
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-white bg-blue-600 text-xs font-medium">1</button>
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors">2</button>
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors">3</button>
+        <span class="text-gray-400 text-xs px-1">...</span>
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors">13</button>
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección inferior: Distribución por tipo + Acciones rápidas -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+
+    <!-- Distribución por tipo de usuario -->
+    <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8">
+      <h2 class="text-lg font-bold text-gray-900 mb-1">Distribución por Tipo</h2>
+      <p class="text-sm text-gray-500 mb-6">Vehículos activos clasificados por rol</p>
+
+      <div class="space-y-4">
+        <!-- Estudiantes -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium text-gray-700">Estudiantes</span>
+            <span class="text-sm font-semibold text-gray-900">38</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2.5">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full" style="width: 60%"></div>
+          </div>
+        </div>
+
+        <!-- Docentes -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium text-gray-700">Docentes</span>
+            <span class="text-sm font-semibold text-gray-900">15</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2.5">
+            <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2.5 rounded-full" style="width: 24%"></div>
+          </div>
+        </div>
+
+        <!-- Administrativos -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium text-gray-700">Administrativos</span>
+            <span class="text-sm font-semibold text-gray-900">7</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2.5">
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 h-2.5 rounded-full" style="width: 11%"></div>
+          </div>
+        </div>
+
+        <!-- Visitantes -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium text-gray-700">Visitantes</span>
+            <span class="text-sm font-semibold text-gray-900">3</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2.5">
+            <div class="bg-gradient-to-r from-amber-500 to-amber-600 h-2.5 rounded-full" style="width: 5%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acciones rápidas del dashboard -->
+    <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8">
+      <h2 class="text-lg font-bold text-gray-900 mb-1">Acciones Rápidas</h2>
+      <p class="text-sm text-gray-500 mb-6">Operaciones frecuentes del sistema</p>
+
+      <div class="grid grid-cols-2 gap-3">
+        <!-- Registrar entrada -->
+        <a href="/registro" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300">
+          <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-blue-700">Registrar Entrada</span>
+        </a>
+
+        <!-- Registrar salida -->
+        <a href="#" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-red-200 hover:bg-red-50/50 transition-all duration-300">
+          <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-red-700">Registrar Salida</span>
+        </a>
+
+        <!-- Nuevo usuario -->
+        <a href="/registro" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-green-200 hover:bg-green-50/50 transition-all duration-300">
+          <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center group-hover:bg-green-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-green-700">Nuevo Usuario</span>
+        </a>
+
+        <!-- Generar reporte -->
+        <a href="#" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300">
+          <div class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-purple-700">Generar Reporte</span>
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Banner de estado del sistema -->
+  <section class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+    <div class="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    </div>
+    <div class="flex-1 text-center md:text-left">
+      <h3 class="font-semibold text-gray-900 mb-1">Sistema Operando con Normalidad</h3>
+      <p class="text-sm text-gray-600 leading-relaxed">Todos los sensores y cámaras están funcionando correctamente. Última sincronización: hace 2 minutos. Tiempo de actividad: 99.8%.</p>
+    </div>
+    <div class="flex-shrink-0">
+      <a href="#" class="inline-flex items-center gap-2 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-xl transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        Configuración
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  // Mostrar fecha actual
+  const dateEl = document.getElementById('current-date');
+  if (dateEl) {
+    const now = new Date();
+    dateEl.textContent = now.toLocaleDateString('es-MX', { 
+      weekday: 'short', 
+      day: 'numeric', 
+      month: 'short', 
+      year: 'numeric' 
+    });
+  }
+</script>
