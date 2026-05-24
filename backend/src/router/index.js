@@ -8,6 +8,14 @@ const router = Router();
 router.use('/auth', authRouter);
 router.use('/users', verifyToken, userRouter);
 
+const express = require('express');
+const router = express.Router();
+const { login } = require('../controllers/authController');
+
+router.post('/login', login);
+
+module.exports = router;
+
 
 //aqui importas el userRouter para que ya acceda a las rutas
 

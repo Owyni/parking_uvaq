@@ -1,34 +1,41 @@
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet'); // 1. Importas Helmet
 const sequelize = require('./src/config/db');
 
 // Sincronizar modelos y relaciones
 require('./src/models');
 
 const app = express();
-app.use(cors());
-app.use(express.json());
-
 const PORT = 3000;
 
-// --- CONFIGURACIÓN DE CORS ---
-const corsOptions = {
-  origin: 'http://localhost:4321', // URL exacta donde corre tu frontend de Astro
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos para el estacionamiento
-  allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados que permites recibir
-  optionsSuccessStatus: 200 // Algunas versiones de navegadores antiguos fallan con el 204
-};
+// --- MIDDLEWARES DE SEGURIDAD ---
+app.use(helmet()); // 2. Helmet para proteger contra vulnerabilidades comunes (XSS, clickjacking, etc.)
 
-app.use(cors(corsOptions));
+// --- CONFIGURACIÓN DE CORS (CORREGIDO) ---
+const corsOptions = {
+  origin: 'http://localhost:4321', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+  optionsSuccessStatus: 200 
+};
+app.use(cors(corsOptions)); // Cors con sus configuraciones
+
+// Middleware para entender JSON
 app.use(express.json());
 
+// --- RUTAS ---
+app.use('/api/auth', require('./src/routes/authRoutes'));
+// app.use('/api/users', require('./src/routes/userRoutes'));
+
+// Sincronización de Base de Datos
 sequelize.sync({ alter: true })
   .then(() => {
-    console.log('Base de datos conectada y sincronizada');
+    console.log('✅ Base de datos conectada y sincronizada');
     app.listen(PORT, () => {
-      console.log(`Servidor corriendo en http://localhost:${PORT}`);
+      console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
     });
   })
   .catch(err => {
-    console.error('Error al conectar la base de datos:', err);
+    console.error('❌ Error al conectar la base de datos:', err);
   });

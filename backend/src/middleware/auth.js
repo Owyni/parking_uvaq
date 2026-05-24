@@ -6,7 +6,7 @@ const generateAccessToken = (userData) => {
             user: userData.matricula,
             nombre: userData.name
         },
-        process.env.SECRET_WORD,
+        process.env.JWT_SECRET,
         {
             expiresIn: '7d',
             algorithm: 'HS256'
@@ -21,7 +21,7 @@ const verifyAccessToken = (req, res, next) => {
         return res.status(401).json({ message: 'No se encontró Token de Acceso' });
     }
     try {
-        const decoded = jwt.verify(token.split(' ')[1], process.env.SECRET_WORD);
+        const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
         req.user = decoded;
         req.matricula = decoded.user;
         next();

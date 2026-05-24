@@ -1,8 +1,13 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-const { title } = Astro.props;
+// src/layouts/Layout.astro
+import "../styles/global.css"; //
+import Header from "../components/Header.astro"; //
+import Footer from "../components/Footer.astro"; //
+
+// CAMBIA ESTA LÍNEA:
+import { ClientRouter } from "astro:transitions";
+
+const { title } = Astro.props; //
 ---
 
 <html lang="es">
@@ -12,65 +17,41 @@ const { title } = Astro.props;
     <title>{title} - UVAQ Parking</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <ClientRouter />
   </head>
 
   <body class="min-h-screen">
     <Header />
-    <main class="min-h-screen max-w-7xl mx-auto px-6 py-10">
-      <slot />
-    </main>
+    <main class="min-h-screen max-w-7xl mx-auto px-6 py-10"><slot /></main>
     <Footer />
+    <script>
+      // Esta función se ejecuta cada vez que la página carga
+      const checkAuth = () => {
+        // Si estamos en la página de inicio o login, no hacemos nada
+        if (
+          window.location.pathname === "/" ||
+          window.location.pathname === "/login"
+        )
+          return;
+
+        // Buscamos el token que guardamos al hacer login
+        const token = localStorage.getItem("token");
+
+        // Si no hay token, lo pateamos de vuelta al inicio
+        if (!token) {
+          window.location.href = "/login";
+        }
+      };
+
+      // Ejecutar en la carga normal
+      checkAuth();
+
+      // Ejecutar cuando Astro ViewTransitions cambia de página
+      document.addEventListener("astro:page-load", checkAuth);
+    </script>
   </body>
-  
 </html>
-
-<style is:global>
-  html,
-  body {
-    min-height: 100%;
-    height: 100%;
-    margin: 0;
-  }
-
-  /* Fuente personalizada */
-  body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  }
-
-  /* Animación de entrada suave */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
-  }
-
-  /* Scrollbar personalizada */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #f1f5f9;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #94a3b8;
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #64748b;
-  }
-
-  /* Transiciones suaves globales para links */
-  a {
-    transition: all 0.2s ease;
-  }
-</style>
