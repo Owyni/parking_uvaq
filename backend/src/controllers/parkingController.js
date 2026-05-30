@@ -16,7 +16,7 @@ const getDashboardStats = async (req, res) => {
     // 4. Calcular espacios disponibles globales
     const disponiblesTotal = capacidadTotal - ocupadosTotal;
 
-    // 5. Opcional: Obtener un desglose por cada categoría (Alumnos, Docentes, etc.)
+    // 5. Obtener un desglose por cada categoría (Alumnos, Docentes, etc.)
     const desgloseCategorias = await Promise.all(
       categorias.map(async (cat) => {
         const ocupadosCat = await ParkingLog.count({

@@ -1,57 +1,67 @@
 ---
 // src/layouts/Layout.astro
-import "../styles/global.css"; //
-import Header from "../components/Header.astro"; //
-import Footer from "../components/Footer.astro"; //
+import "../styles/global.css";
+import Header from "../components/Header.astro";
 
-// CAMBIA ESTA LÍNEA:
 import { ClientRouter } from "astro:transitions";
 
-const { title } = Astro.props; //
+const { title } = Astro.props;
 ---
 
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} - UVAQ Parking</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
     <ClientRouter />
   </head>
 
-  <body class="min-h-screen">
+  <body
+    class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen font-sans text-gray-800 antialiased"
+  >
     <Header />
-    <main class="min-h-screen max-w-7xl mx-auto px-6 py-10"><slot /></main>
-    <Footer />
+    <main class="max-w-7xl mx-auto px-6 py-10 animate-fade-in">
+      <slot />
+    </main>
+
     <script>
-      // Esta función se ejecuta cada vez que la página carga
-      const checkAuth = () => {
-        // Si estamos en la página de inicio o login, no hacemos nada
-        if (
-          window.location.pathname === "/" ||
-          window.location.pathname === "/login"
-        )
-          return;
-
-        // Buscamos el token que guardamos al hacer login
+      const verificarSeguridadFrontend = () => {
         const token = localStorage.getItem("token");
+        
+        // Normalizamos la ruta quitando diagonales extras al final
+        let currentPath = window.location.pathname;
+        if (currentPath.endsWith("/") && currentPath !== "/") {
+          currentPath = currentPath.slice(0, -1);
+        }
 
-        // Si no hay token, lo pateamos de vuelta al inicio
-        if (!token) {
+        console.log("🔒 [Seguridad] Ruta detectada:", currentPath);
+
+        // 1. Si NO hay token y NO está en el login ni en la bienvenida (/), lo obligamos a ir al login
+        if (!token && currentPath !== "/login" && currentPath !== "/") {
           window.location.href = "/login";
+          return;
+        }
+
+        // 2. Si SÍ hay token, SOLO lo bloqueamos si intenta entrar explícitamente a "/login"
+        // Quitamos por completo la restricción de la raíz "/" para que puedas visitarla libremente
+        if (token && currentPath === "/login") {
+          window.location.href = "/dashboard";
+          return;
         }
       };
 
-      // Ejecutar en la carga normal
-      checkAuth();
-
-      // Ejecutar cuando Astro ViewTransitions cambia de página
-      document.addEventListener("astro:page-load", checkAuth);
+      // REGLA DE ORO PARA CLIENTROUTER:
+      // astro:page-load se dispara SIEMPRE: en la primera carga (F5) y en cada clic del menú
+      document.addEventListener("astro:page-load", verificarSeguridadFrontend);
     </script>
   </body>
 </html>

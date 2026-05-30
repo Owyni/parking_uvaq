@@ -1,10 +1,12 @@
 // seed.js
+const bcrypt = require('bcryptjs');
 const { 
   sequelize, 
   Roles, 
   Carreras, 
   Colores, 
-  CategoriaEspacios 
+  CategoriaEspacios,
+  Usuarios 
 } = require('./src/models');
 
 const startSeeding = async () => {
@@ -13,18 +15,20 @@ const startSeeding = async () => {
     console.log('📦 Conexión establecida para el sembrado...');
 
     // 1. Vaciamos las tablas y reiniciamos los IDs antes de sembrar
+    await sequelize.query('TRUNCATE TABLE "Usuarios" RESTART IDENTITY CASCADE;'); // Limpieza de usuarios
     await sequelize.query('TRUNCATE TABLE "Roles" RESTART IDENTITY CASCADE;');
     await sequelize.query('TRUNCATE TABLE "Colores" RESTART IDENTITY CASCADE;');
     await sequelize.query('TRUNCATE TABLE "Carreras" RESTART IDENTITY CASCADE;');
     await sequelize.query('TRUNCATE TABLE "CategoriaEspacios" RESTART IDENTITY CASCADE;');
     console.log('🧹 Tablas limpiadas y contadores reiniciados.');
 
-    // 2. Insertamos los datos de forma limpia y directa
+    // 2. Insertamos los roles de forma limpia
     await Roles.bulkCreate([
-      { name: 'Estudiante' },
-      { name: 'Docente' },
-      { name: 'Visitante' },
-      { name: 'Administrativo' }
+      { name: 'Administrador' }, // ID 1
+      { name: 'Estudiante' },    // ID 2
+      { name: 'Docente' },       // ID 3
+      { name: 'Visitante' },     // ID 4
+      { name: 'Administrativo' }  // ID 5
     ]);
 
     await Colores.bulkCreate([
@@ -45,7 +49,20 @@ const startSeeding = async () => {
       { name: 'Oficiales', totalCapacity: 15 }
     ]);
 
-    console.log('✅ ¡Base de datos sembrada con éxito desde cero!');
+    // 3. ENCRIPTACIÓN Y CREACIÓN DEL PRIMER ADMINISTRADOR
+    const contraseñaEncriptada = await bcrypt.hash('admin123', 10);
+
+    await Usuarios.create({
+      name: 'Administrador Principal UVAQ',
+      matricula: 'ADMIN01',
+      correo: 'admin@uvaq.edu.mx',
+      contrasena: contraseñaEncriptada, // El hash seguro
+      roleId: 1,                        // ID del rol 'Administrador'
+      carreraId: null
+    });
+
+    console.log('✅ ¡Base de datos sembrada y Administrador creado con éxito!');
+    console.log('🧑‍💻 Credenciales de prueba -> Correo: admin@uvaq.edu.mx | Password: admin123');
     process.exit();
   } catch (error) {
     console.error('❌ Error al sembrar:', error);

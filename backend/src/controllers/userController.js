@@ -35,11 +35,10 @@ const registerUserWithVehicle = async (req, res) => {
       model,
       colorId,
       tipoVehiculoId,
-      userId: newUser.id // Vinculación mediante FK
+      userId: newUser.id
     });
 
     // 4. Generar el API Token para el nuevo usuario
-    // Guardamos su ID y su Matrícula dentro del token
     const userToken = jwt.sign(
       { id: newUser.id, matricula: newUser.matricula },
       process.env.JWT_SECRET,
