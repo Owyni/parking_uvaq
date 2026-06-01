@@ -28,7 +28,6 @@ const startSeeding = async () => {
       { name: 'Estudiante' },    // ID 2
       { name: 'Docente' },       // ID 3
       { name: 'Visitante' },     // ID 4
-      { name: 'Administrativo' }  // ID 5
     ]);
 
     await Colores.bulkCreate([

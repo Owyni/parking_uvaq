@@ -19,7 +19,7 @@ const currentDate = new Date().toLocaleDateString('es-ES');
           <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
           <span class="text-xs font-medium text-green-700">En línea</span>
         </div>
-        <span class="text-xs text-gray-400" id="current-date">--/--/----</span>
+        <span class="text-xs text-gray-400" id="clock">--/--/----</span>
       </div>
     </div>
   </section>
@@ -29,10 +29,10 @@ const currentDate = new Date().toLocaleDateString('es-ES');
   <svg>...</svg>
 </StatCard>
 
-  <!-- Sección principal: Gráfica + Actividad reciente -->
+  <!-- Sección principal -->
   <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
 
-    <!-- Gráfica de ocupación (2 columnas) -->
+    <!-- Gráfica de ocupación -->
     <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8">
       <div class="flex items-center justify-between mb-6">
         <div>
@@ -514,19 +514,29 @@ const currentDate = new Date().toLocaleDateString('es-ES');
 </Layout>
 
 <script>
-  // Mostrar fecha y hora actual
-  const dateEl = document.getElementById('current-date');
-  if (dateEl) {
-    const now = new Date();
-    dateEl.textContent = `${now.toLocaleDateString('es-MX', {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric'
-    })} ${now.toLocaleTimeString('es-MX', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    })}`;
-  }
+  let clockInterval: number;
+
+  const iniciarRelojDashboard = () => {
+    const clockElement = document.getElementById('clock');
+    if (!clockElement) return;
+
+    clearInterval(clockInterval);
+
+    const actualizarHora = () => {
+      const ahora = new Date();
+      clockElement.textContent = ahora.toLocaleDateString('es-MX', {
+        weekday: 'long',
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      });
+    };
+
+    actualizarHora();
+    // Guardamos el ID numérico nativo del navegador
+    clockInterval = window.setInterval(actualizarHora, 1000);
+  };
+
+  iniciarRelojDashboard();
+  document.addEventListener('astro:page-load', iniciarRelojDashboard);
 </script>
