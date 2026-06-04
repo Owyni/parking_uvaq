@@ -1,49 +1,99 @@
-const { ParkingLog, CategoriaEspacios } = require('../models');
+const { ControlAccesos, Vehiculos } = require('../models');
+const { Op } = require('sequelize');
 
-const getDashboardStats = async (req, res) => {
+const registrarEntrada = async (req, res) => {
   try {
-    // 1. Obtener todas las categorías y sus capacidades totales
-    const categorias = await CategoriaEspacios.findAll();
+    const { vehiculoId, observations } = req.body;
 
-    // 2. Contar cuántos vehículos están ADENTRO actualmente (exitTime es NULL)
-    const ocupadosTotal = await ParkingLog.count({
-      where: { exitTime: null }
+    if (!vehiculoId) {
+      return res.status(400).json({ message: 'El ID o Placa del vehículo es requerido.' });
+    }
+
+    let vehiculo = null;
+    const stringId = String(vehiculoId).trim();
+
+    if (/^\d+$/.test(stringId)) {
+      vehiculo = await Vehiculos.findByPk(parseInt(stringId, 10));
+    }
+    
+    if (!vehiculo) {
+      vehiculo = await Vehiculos.findOne({ 
+        where: { 
+          placa: { [Op.like]: `%${stringId}%` } 
+        } 
+      });
+    }
+
+    if (!vehiculo) {
+      return res.status(404).json({ message: 'Vehículo no encontrado en el sistema. Verifica el ID o Placa.' });
+    }
+
+    // 1. CORRECCIÓN AQUÍ: Usamos vehicleId
+    const accesoActivo = await ControlAccesos.findOne({
+      where: { 
+        vehicleId: vehiculo.id, 
+        exitTime: null 
+      }
     });
 
-    // 3. Calcular la capacidad total sumando todas las categorías
-    const capacidadTotal = categorias.reduce((sum, cat) => sum + (cat.totalCapacity || 0), 0);
+    if (accesoActivo) {
+      return res.status(400).json({ message: `El vehículo con placa ${vehiculo.placa} ya se encuentra dentro.` });
+    }
 
-    // 4. Calcular espacios disponibles globales
-    const disponiblesTotal = capacidadTotal - ocupadosTotal;
+    // 2. CORRECCIÓN AQUÍ: Usamos vehicleId
+    const nuevoAcceso = await ControlAccesos.create({
+      vehicleId: vehiculo.id,
+      entryTime: new Date(),
+      observations: observations || ''
+    });
 
-    // 5. Obtener un desglose por cada categoría (Alumnos, Docentes, etc.)
-    const desgloseCategorias = await Promise.all(
-      categorias.map(async (cat) => {
-        const ocupadosCat = await ParkingLog.count({
-          where: { categoryId: cat.id, exitTime: null }
-        });
-        return {
-          id: cat.id,
-          name: cat.name,
-          total: cat.totalCapacity,
-          ocupados: ocupadosCat,
-          disponibles: cat.totalCapacity - ocupadosCat
-        };
-      })
-    );
-
-    // 6. Responder con las estadísticas calculadas
-    return res.status(200).json({
-      capacidadTotal,
-      ocupadosTotal,
-      disponiblesTotal,
-      categorias: desgloseCategorias
+    return res.status(201).json({ 
+      message: 'Entrada registrada exitosamente', 
+      acceso: nuevoAcceso 
     });
 
   } catch (error) {
-    console.error('Error al obtener estadísticas del dashboard:', error);
-    return res.status(500).json({ message: 'Error al calcular estadísticas del estacionamiento.' });
+    console.error('❌ Error exacto en registrarEntrada:', error);
+    return res.status(500).json({ message: 'Error interno del servidor al procesar la entrada.' });
   }
 };
 
-module.exports = { getDashboardStats };
+const registrarSalida = async (req, res) => {
+  try {
+    const { placa } = req.body;
+
+    const vehiculo = await Vehiculos.findOne({ where: { placa } });
+    if (!vehiculo) {
+      return res.status(404).json({ message: 'Vehículo no encontrado con esa placa.' });
+    }
+
+    // 3. CORRECCIÓN AQUÍ TAMBIÉN: Usamos vehicleId para que la salida no falle
+    const accesoActivo = await ControlAccesos.findOne({
+      where: { 
+        vehicleId: vehiculo.id, 
+        exitTime: null 
+      }
+    });
+
+    if (!accesoActivo) {
+      return res.status(400).json({ message: 'Este vehículo no registra ninguna entrada activa.' });
+    }
+
+    accesoActivo.exitTime = new Date();
+    await accesoActivo.save();
+
+    return res.status(200).json({ 
+      message: 'Salida registrada correctamente', 
+      acceso: accesoActivo 
+    });
+
+  } catch (error) {
+    console.error('❌ Error exacto en registrarSalida:', error);
+    return res.status(500).json({ message: 'Error interno al procesar la salida.' });
+  }
+};
+
+module.exports = {
+  registrarEntrada,
+  registrarSalida
+};

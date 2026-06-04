@@ -28,6 +28,7 @@ app.use(express.json());
 app.use('/api/auth', require('./src/routes/authRoutes'));
 app.use('/api/usuarios', require('./src/routes/userRoutes'));
 app.use('/api/dashboard', require('./src/routes/dashboardRoutes'));
+app.use('/api/parking', require('./src/routes/parkingRoutes'));
 
 // Sincronización de Base de Datos
 sequelize.sync({ alter: true })

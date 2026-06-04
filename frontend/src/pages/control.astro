@@ -1,0 +1,191 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Control de Accesos">
+  <section class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">Control de Accesos Manual</h1>
+    <p class="text-sm text-gray-500 mt-1">Registra entradas y salidas de vehículos en tiempo real.</p>
+  </section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Registrar Entrada</h2>
+      <form id="form-entrada" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">ID del Vehículo o Placa</label>
+          <input 
+            type="text" 
+            id="vehiculo-id" 
+            placeholder="Ej. 1 o ABC-123" 
+            required 
+            class="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Observaciones (Opcional)</label>
+          <textarea 
+            id="observaciones-entrada" 
+            placeholder="Ninguna..." 
+            rows="2"
+            class="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all resize-none"
+          ></textarea>
+        </div>
+        <button 
+          type="submit" 
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2.5 rounded-xl shadow-sm transition-colors cursor-pointer text-center"
+        >
+          Confirmar Entrada
+        </button>
+      </form>
+      <div id="mensaje-entrada" class="mt-3 text-sm hidden"></div>
+    </div>
+
+    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-1">Vehículos en Estacionamiento</h2>
+      <p class="text-xs text-gray-400 mb-4">Haz clic en "Registrar Salida" para liberar el espacio.</p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-gray-100 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              <th class="pb-3 pl-4">Placa</th>
+              <th class="pb-3">Propietario</th>
+              <th class="pb-3">Hora Entrada</th>
+              <th class="pb-3 pr-4 text-right">Acción</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-50" id="tabla-control-accesos">
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = '/login';
+  }
+
+  // --- Cargar los vehículos activos dentro del estacionamiento ---
+  const cargarVehiculosActivos = async () => {
+    try {
+      const res = await fetch('http://localhost:3000/api/dashboard/stats', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!res.ok) throw new Error('Error al consultar ocupación');
+      const data = await res.json();
+
+      const tabla = document.getElementById('tabla-control-accesos');
+      if (!tabla) return;
+
+      if (!data.vehiculosEnEstacionamiento || data.vehiculosEnEstacionamiento.length === 0) {
+        tabla.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-sm text-gray-400">No hay vehículos dentro en este momento.</td></tr>`;
+        return;
+      }
+
+      // Nota: Tu controlador de dashboard necesitará retornar el ID del acceso o la placa para poder procesar la salida.
+      // Usaremos la placa como identificador único o el ID si lo agregas al mapeo.
+      tabla.innerHTML = data.vehiculosEnEstacionamiento.map((v: any) => `
+        <tr class="hover:bg-gray-50/50 transition-colors text-sm">
+          <td class="py-3.5 pl-4">
+            <span class="font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">${v.placa}</span>
+          </td>
+          <td class="py-3.5">
+            <div>
+              <p class="font-medium text-gray-900">${v.propietario}</p>
+              <p class="text-xs text-gray-400">${v.rol}</p>
+            </div>
+          </td>
+          <td class="py-3.5 text-gray-600">${v.horaEntrada}</td>
+          <td class="py-3.5 pr-4 text-right">
+            <button 
+              data-placa="${v.placa}" 
+              class="btn-salida bg-red-50 hover:bg-red-100 text-red-600 font-medium text-xs px-3 py-1.5 rounded-xl border border-red-200 transition-colors"
+            >
+              Registrar Salida
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      // Agregar los listeners a los botones de salida generados
+      document.querySelectorAll('.btn-salida').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const placa = (e.target as HTMLButtonElement).getAttribute('data-placa');
+          if (placa) procesarSalida(placa);
+        });
+      });
+
+    } catch (err) {
+      console.error('Error cargando controles:', err);
+    }
+  };
+
+  // --- Ejecutar registro de entrada ---
+  const formEntrada = document.getElementById('form-entrada') as HTMLFormElement;
+  formEntrada?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const vehiculoId = (document.getElementById('vehiculo-id') as HTMLInputElement).value;
+    const observations = (document.getElementById('observaciones-entrada') as HTMLInputElement).value;
+    const msg = document.getElementById('mensaje-entrada');
+
+    try {
+      const res = await fetch('http://localhost:3000/api/parking/entrada', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ vehiculoId, observations })
+      });
+
+      const data = await res.json();
+      if (!msg) return;
+
+      msg.classList.remove('hidden', 'text-green-600', 'text-red-600');
+      if (res.ok) {
+        msg.textContent = "✅ Entrada registrada.";
+        msg.classList.add('text-green-600');
+        formEntrada.reset();
+        cargarVehiculosActivos(); // Refrescar la tabla
+      } else {
+        msg.textContent = `❌ ${data.message || 'Error'}`;
+        msg.classList.add('text-red-600');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  // --- Ejecutar registro de salida ---
+  const procesarSalida = async (placa: string) => {
+    if (!confirm(`¿Confirmar salida del vehículo con placa ${placa}?`)) return;
+
+    try {
+      const res = await fetch('http://localhost:3000/api/parking/salida', {
+        method: 'PUT',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ placa }) // Enviamos la placa para identificar el acceso activo
+      });
+
+      if (res.ok) {
+        alert('Salida registrada con éxito.');
+        cargarVehiculosActivos(); // Refrescar la tabla
+      } else {
+        const data = await res.json();
+        alert(`Error: ${data.message}`);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Escuchar el ciclo de vida de Astro para inicializar
+  document.addEventListener('astro:page-load', cargarVehiculosActivos);
+</script>

@@ -1,27 +1,49 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import StatCard from '../components/StatCard.astro';
+import Layout from "../layouts/Layout.astro";
+import StatCard from "../components/StatCard.astro";
 
-const currentDate = new Date().toLocaleDateString('es-ES');
+const currentDate = new Date().toLocaleDateString("es-ES");
 ---
 
 <Layout title="Dashboard">
-
   <section class="mb-8">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div
+      class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+    >
       <div>
-        <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">Dashboard</h1>
-        <p class="text-sm text-gray-500 mt-1">Resumen general del sistema de estacionamiento</p>
+        <h1
+          class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight"
+        >
+          Dashboard
+        </h1>
+        <p class="text-sm text-gray-500 mt-1">
+          Resumen general del sistema de estacionamiento
+        </p>
       </div>
       <div class="flex items-center gap-3">
-        <div class="inline-flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-1.5">
+        <div
+          class="inline-flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-1.5"
+        >
           <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
           <span class="text-xs font-medium text-green-700">En línea</span>
         </div>
-        
-        <a href="/registroVisitante" class="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-colors cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+
+        <a
+          href="/registroVisitante"
+          class="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-colors cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-3.5 w-3.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4v16m8-8H4"></path>
           </svg>
           Visita
         </a>
@@ -32,114 +54,232 @@ const currentDate = new Date().toLocaleDateString('es-ES');
   </section>
 
   <div id="total-espacios-container">
-    <StatCard title="Total" value="---" subtitle="Espacios Totales" iconColor="blue">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+    <StatCard
+      title="Total"
+      value="---"
+      subtitle="Espacios Totales"
+      iconColor="blue"
+    >
+      <svg
+        class="w-8 h-8"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+        ></path>
       </svg>
     </StatCard>
   </div>
 
   <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
-
-    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8">
+    <div
+      class="lg:col-span-2 bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8"
+    >
       <div class="flex items-center justify-between mb-6">
         <div>
           <h2 class="text-lg font-bold text-gray-900">Ocupación por Hora</h2>
-          <p class="text-sm text-gray-500 mt-0.5">Distribución de vehículos durante el día</p>
+          <p class="text-sm text-gray-500 mt-0.5">
+            Distribución de vehículos durante el día
+          </p>
         </div>
         <div class="flex items-center gap-2">
-          <button class="text-xs font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">Hoy</button>
-          <button class="text-xs font-medium text-white bg-blue-600 px-3 py-1.5 rounded-lg">Semana</button>
-          <button class="text-xs font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">Mes</button>
+          <button
+            class="text-xs font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors"
+            >Hoy</button
+          >
+          <button
+            class="text-xs font-medium text-white bg-blue-600 px-3 py-1.5 rounded-lg"
+            >Semana</button
+          >
+          <button
+            class="text-xs font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors"
+            >Mes</button
+          >
         </div>
       </div>
 
       <div class="relative w-full h-56 md:h-64">
         <div class="absolute inset-0 flex items-end justify-between gap-2 px-2">
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 20%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
+              style="height: 20%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">6am</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 45%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
+              style="height: 45%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">7am</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 75%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
+              style="height: 75%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">8am</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-600 to-indigo-500 rounded-t-lg" style="height: 95%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-600 to-indigo-500 rounded-t-lg"
+              style="height: 95%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">9am</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-600 to-indigo-500 rounded-t-lg" style="height: 90%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-600 to-indigo-500 rounded-t-lg"
+              style="height: 90%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">10am</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 80%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
+              style="height: 80%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">11am</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 60%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
+              style="height: 60%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">12pm</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 50%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
+              style="height: 50%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">1pm</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 65%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
+              style="height: 65%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">2pm</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 70%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
+              style="height: 70%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">3pm</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 55%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
+              style="height: 55%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">4pm</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 35%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
+              style="height: 35%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">5pm</span>
           </div>
           <div class="flex-1 flex flex-col items-center gap-1">
-            <div class="w-full bg-gradient-to-t from-blue-400 to-blue-300 rounded-t-lg" style="height: 15%"></div>
+            <div
+              class="w-full bg-gradient-to-t from-blue-400 to-blue-300 rounded-t-lg"
+              style="height: 15%"
+            >
+            </div>
             <span class="text-[10px] text-gray-400">6pm</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6">
+    <div
+      class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6"
+    >
       <div class="flex items-center justify-between mb-5">
         <h2 class="text-lg font-bold text-gray-900">Actividad Reciente</h2>
-        <a href="#" class="text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors">Ver todo</a>
+        <a
+          href="#"
+          class="text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
+          >Ver todo</a
+        >
       </div>
 
-      <div class="space-y-4" id="actividad-reciente">
-        </div>
+      <div class="space-y-4" id="actividad-reciente"></div>
     </div>
-
   </section>
 
-  <section class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8 mb-10">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+  <section
+    class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8 mb-10"
+  >
+    <div
+      class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6"
+    >
       <div>
-        <h2 class="text-lg font-bold text-gray-900">Vehículos en Estacionamiento</h2>
-        <p class="text-sm text-gray-500 mt-0.5">Vehículos actualmente dentro del campus</p>
+        <h2 class="text-lg font-bold text-gray-900">
+          Vehículos en Estacionamiento
+        </h2>
+        <p class="text-sm text-gray-500 mt-0.5">
+          Vehículos actualmente dentro del campus
+        </p>
       </div>
       <div class="flex items-center gap-3">
         <div class="relative">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
-          <input type="text" placeholder="Buscar placa..." class="pl-9 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all w-48" />
+          <input
+            type="text"
+            placeholder="Buscar placa..."
+            class="pl-9 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all w-48"
+          />
         </div>
-        <button class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 bg-gray-50 border border-gray-200 px-4 py-2 rounded-xl hover:bg-gray-100 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+        <button
+          class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 bg-gray-50 border border-gray-200 px-4 py-2 rounded-xl hover:bg-gray-100 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+            ></path>
           </svg>
           Filtrar
         </button>
@@ -150,34 +290,90 @@ const currentDate = new Date().toLocaleDateString('es-ES');
       <table class="w-full">
         <thead>
           <tr class="border-b border-gray-100">
-            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pl-4">Placa</th>
-            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Propietario</th>
-            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Tipo</th>
-            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Hora Entrada</th>
-            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Duración</th>
-            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pr-4">Estado</th>
+            <th
+              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pl-4"
+              >Placa</th
+            >
+            <th
+              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3"
+              >Propietario</th
+            >
+            <th
+              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3"
+              >Tipo</th
+            >
+            <th
+              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3"
+              >Hora Entrada</th
+            >
+            <th
+              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3"
+              >Duración</th
+            >
+            <th
+              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pr-4"
+              >Estado</th
+            >
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-50" id="tabla-vehiculos">
-          </tbody>
+        <tbody class="divide-y divide-gray-50" id="tabla-vehiculos"> </tbody>
       </table>
     </div>
 
-    <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
-      <p class="text-sm text-gray-500">Mostrando <span class="font-medium text-gray-700">1-5</span> de <span class="font-medium text-gray-700">--</span> vehículos</p>
+    <div
+      class="flex items-center justify-between mt-6 pt-4 border-t border-gray-100"
+    >
+      <p class="text-sm text-gray-500">
+        Mostrando <span class="font-medium text-gray-700">1-5</span> de <span
+          class="font-medium text-gray-700">--</span
+        > vehículos
+      </p>
       <div class="flex items-center gap-1">
-        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        <button
+          class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 19l-7-7 7-7"></path>
           </svg>
         </button>
-        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-white bg-blue-600 text-xs font-medium">1</button>
-        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors">2</button>
-        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors">3</button>
+        <button
+          class="w-8 h-8 flex items-center justify-center rounded-lg text-white bg-blue-600 text-xs font-medium"
+          >1</button
+        >
+        <button
+          class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors"
+          >2</button
+        >
+        <button
+          class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors"
+          >3</button
+        >
         <span class="text-gray-400 text-xs px-1">...</span>
-        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        <button
+          class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 5l7 7-7 7"></path>
           </svg>
         </button>
       </div>
@@ -185,140 +381,292 @@ const currentDate = new Date().toLocaleDateString('es-ES');
   </section>
 
   <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
-
-    <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8">
-      <h2 class="text-lg font-bold text-gray-900 mb-1">Distribución por Tipo</h2>
-      <p class="text-sm text-gray-500 mb-6">Vehículos activos clasificados por rol</p>
+    <div
+      class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8"
+    >
+      <h2 class="text-lg font-bold text-gray-900 mb-1">
+        Distribución por Tipo
+      </h2>
+      <p class="text-sm text-gray-500 mb-6">
+        Vehículos activos clasificados por rol
+      </p>
 
       <div class="space-y-4">
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <span class="text-sm font-medium text-gray-700">Estudiantes</span>
-            <span class="text-sm font-semibold text-gray-900" id="dist-estudiantes-num">0</span>
+            <span
+              class="text-sm font-semibold text-gray-900"
+              id="dist-estudiantes-num">0</span
+            >
           </div>
           <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div id="dist-estudiantes-bar" class="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+            <div
+              id="dist-estudiantes-bar"
+              class="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full"
+              style="width: 0%"
+            >
+            </div>
           </div>
         </div>
 
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <span class="text-sm font-medium text-gray-700">Docentes</span>
-            <span class="text-sm font-semibold text-gray-900" id="dist-docentes-num">0</span>
+            <span
+              class="text-sm font-semibold text-gray-900"
+              id="dist-docentes-num">0</span
+            >
           </div>
           <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div id="dist-docentes-bar" class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
+            <div
+              id="dist-docentes-bar"
+              class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2.5 rounded-full"
+              style="width: 0%"
+            >
+            </div>
           </div>
         </div>
 
         <div>
           <div class="flex items-center justify-between mb-1.5">
-            <span class="text-sm font-medium text-gray-700">Administrativos</span>
-            <span class="text-sm font-semibold text-gray-900" id="dist-admin-num">0</span>
+            <span class="text-sm font-medium text-gray-700"
+              >Administrativos</span
+            >
+            <span
+              class="text-sm font-semibold text-gray-900"
+              id="dist-admin-num">0</span
+            >
           </div>
           <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div id="dist-admin-bar" class="bg-gradient-to-r from-purple-500 to-purple-600 h-2.5 rounded-full" style="width: 0%"></div>
+            <div
+              id="dist-admin-bar"
+              class="bg-gradient-to-r from-purple-500 to-purple-600 h-2.5 rounded-full"
+              style="width: 0%"
+            >
+            </div>
           </div>
         </div>
 
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <span class="text-sm font-medium text-gray-700">Visitantes</span>
-            <span class="text-sm font-semibold text-gray-900" id="dist-visitantes-num">0</span>
+            <span
+              class="text-sm font-semibold text-gray-900"
+              id="dist-visitantes-num">0</span
+            >
           </div>
           <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div id="dist-visitantes-bar" class="bg-gradient-to-r from-amber-500 to-amber-600 h-2.5 rounded-full" style="width: 0%"></div>
+            <div
+              id="dist-visitantes-bar"
+              class="bg-gradient-to-r from-amber-500 to-amber-600 h-2.5 rounded-full"
+              style="width: 0%"
+            >
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8">
+    <div
+      class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8"
+    >
       <h2 class="text-lg font-bold text-gray-900 mb-1">Acciones Rápidas</h2>
-      <p class="text-sm text-gray-500 mb-6">Operaciones frecuentes del sistema</p>
+      <p class="text-sm text-gray-500 mb-6">
+        Operaciones frecuentes del sistema
+      </p>
 
       <div class="grid grid-cols-2 gap-3">
-        <a href="/registro" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300">
-          <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />
+        <a
+          href="/control"
+          class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300"
+        >
+          <div
+            class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-blue-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M11 16l-4-4m0 0l4-4m-4 4h14"></path>
             </svg>
           </div>
-          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-blue-700">Registrar Entrada</span>
+          <span
+            class="text-xs font-medium text-gray-700 text-center group-hover:text-blue-700"
+            >Registrar Entrada</span
+          >
         </a>
 
-        <a href="#" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-red-200 hover:bg-red-50/50 transition-all duration-300">
-          <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        <a
+          href="/control"
+          class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-red-200 hover:bg-red-50/50 transition-all duration-300"
+        >
+          <div
+            class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-red-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
           </div>
-          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-red-700">Registrar Salida</span>
+          <span
+            class="text-xs font-medium text-gray-700 text-center group-hover:text-red-700"
+            >Registrar Salida</span
+          >
         </a>
 
-        <a href="/registroVisitante" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50/50 transition-all duration-300">
-          <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        <a
+          href="/registroVisitante"
+          class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50/50 transition-all duration-300"
+        >
+          <div
+            class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-indigo-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
             </svg>
           </div>
-          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-indigo-700">Registrar Visitante</span>
+          <span
+            class="text-xs font-medium text-gray-700 text-center group-hover:text-indigo-700"
+            >Registrar Visitante</span
+          >
         </a>
 
-        <a href="#" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300">
-          <div class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        <a
+          href="#"
+          class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300"
+        >
+          <div
+            class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-purple-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
             </svg>
           </div>
-          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-purple-700">Generar Reporte</span>
+          <span
+            class="text-xs font-medium text-gray-700 text-center group-hover:text-purple-700"
+            >Generar Reporte</span
+          >
         </a>
       </div>
     </div>
-
   </section>
 
-  <section class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
-    <div class="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+  <section
+    class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-6 md:p-8 flex flex-col md:flex-row items-center gap-6"
+  >
+    <div
+      class="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-7 w-7 text-blue-600"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+        ></path>
       </svg>
     </div>
     <div class="flex-1 text-center md:text-left">
-      <h3 class="font-semibold text-gray-900 mb-1">Sistema Operando con Normalidad</h3>
-      <p class="text-sm text-gray-600 leading-relaxed">Todos los sensores y cámaras están funcionando correctamente. Última sincronización: hace 2 minutos. Tiempo de actividad: 99.8%.</p>
+      <h3 class="font-semibold text-gray-900 mb-1">
+        Sistema Operando con Normalidad
+      </h3>
+      <p class="text-sm text-gray-600 leading-relaxed">
+        Todos los sensores y cámaras están funcionando correctamente. Última
+        sincronización: hace 2 minutos. Tiempo de actividad: 99.8%.
+      </p>
     </div>
     <div class="flex-shrink-0">
-      <a href="#" class="inline-flex items-center gap-2 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-xl transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      <a
+        href="#"
+        class="inline-flex items-center gap-2 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-xl transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+          ></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
         </svg>
         Configuración
       </a>
     </div>
   </section>
-
 </Layout>
 
 <script>
   let clockInterval: number;
 
   const iniciarRelojDashboard = () => {
-    const clockElement = document.getElementById('clock');
+    const clockElement = document.getElementById("clock");
     if (!clockElement) return;
 
     clearInterval(clockInterval);
 
     const actualizarHora = () => {
       const ahora = new Date();
-      clockElement.textContent = ahora.toLocaleDateString('es-MX', {
-        weekday: 'long',
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+      clockElement.textContent = ahora.toLocaleDateString("es-MX", {
+        weekday: "long",
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
       });
     };
 
@@ -328,43 +676,51 @@ const currentDate = new Date().toLocaleDateString('es-ES');
 
   const cargarDatosDashboard = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
-        window.location.href = '/login';
+        window.location.href = "/login";
         return;
       }
 
-      const res = await fetch('http://localhost:3000/api/dashboard/stats', {
-        headers: { 'Authorization': `Bearer ${token}` }
+      const res = await fetch("http://localhost:3000/api/dashboard/stats", {
+        headers: { Authorization: `Bearer ${token}` },
       });
-      
-      if (!res.ok) throw new Error('Error al obtener métricas');
-      
+
+      if (!res.ok) throw new Error("Error al obtener métricas");
+
       const data = await res.json();
 
       // 0. Inyectar dinámicamente la capacidad total en la StatCard de Astro
-      const totalEspaciosContenedor = document.getElementById('total-espacios-container');
+      const totalEspaciosContenedor = document.getElementById(
+        "total-espacios-container",
+      );
       if (totalEspaciosContenedor && data.espaciosTotales !== undefined) {
-        const valueSpan = totalEspaciosContenedor.querySelector('.text-2xl, .text-3xl, font-bold');
+        const valueSpan = totalEspaciosContenedor.querySelector(
+          ".text-2xl, .text-3xl, font-bold",
+        );
         if (valueSpan) {
           valueSpan.textContent = data.espaciosTotales;
         }
       }
 
       // 1. Inyectar Actividad Reciente
-      const contenedorActividad = document.getElementById('actividad-reciente');
+      const contenedorActividad = document.getElementById("actividad-reciente");
       if (contenedorActividad && data.actividadReciente) {
-        contenedorActividad.innerHTML = data.actividadReciente.map((mov: any) => {
-          const esSalida = mov.tipo === 'Salida';
-          const bgClass = esSalida ? 'bg-red-50' : 'bg-green-50';
-          const textClass = esSalida ? 'text-red-600' : 'text-green-600';
-          const svgPath = esSalida 
-            ? '<path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />'
-            : '<path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />';
+        contenedorActividad.innerHTML = data.actividadReciente
+          .map((mov: any) => {
+            const esSalida = mov.tipo === "Salida";
+            const bgClass = esSalida ? "bg-red-50" : "bg-green-50";
+            const textClass = esSalida ? "text-red-600" : "text-green-600";
+            const svgPath = esSalida
+              ? '<path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />'
+              : '<path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />';
 
-          const horaString = new Date(mov.hora).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+            const horaString = new Date(mov.hora).toLocaleTimeString("es-MX", {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
 
-          return `
+            return `
             <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
               <div class="w-9 h-9 rounded-lg ${bgClass} flex items-center justify-center flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ${textClass}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -378,18 +734,22 @@ const currentDate = new Date().toLocaleDateString('es-ES');
               <span class="text-xs text-gray-400 flex-shrink-0">${horaString}</span>
             </div>
           `;
-        }).join('');
+          })
+          .join("");
       }
 
       // 2. Inyectar Tabla de Vehículos Activos
-      const tablaVehiculos = document.getElementById('tabla-vehiculos');
+      const tablaVehiculos = document.getElementById("tabla-vehiculos");
       if (tablaVehiculos && data.vehiculosEnEstacionamiento) {
-        tablaVehiculos.innerHTML = data.vehiculosEnEstacionamiento.map((v: any) => {
-          const esProlongado = v.estado === 'Prolongado';
-          const statusBg = esProlongado ? 'bg-amber-50 border-amber-200 text-amber-700' : 'bg-green-50 border-green-200 text-green-700';
-          const dotBg = esProlongado ? 'bg-amber-500' : 'bg-green-500';
+        tablaVehiculos.innerHTML = data.vehiculosEnEstacionamiento
+          .map((v: any) => {
+            const esProlongado = v.estado === "Prolongado";
+            const statusBg = esProlongado
+              ? "bg-amber-50 border-amber-200 text-amber-700"
+              : "bg-green-50 border-green-200 text-green-700";
+            const dotBg = esProlongado ? "bg-amber-500" : "bg-green-500";
 
-          return `
+            return `
             <tr class="hover:bg-gray-50/50 transition-colors">
               <td class="py-3.5 pl-4">
                 <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">${v.placa}</span>
@@ -417,22 +777,40 @@ const currentDate = new Date().toLocaleDateString('es-ES');
               </td>
             </tr>
           `;
-        }).join('');
+          })
+          .join("");
       }
 
       // 3. Inyectar Distribución (Cálculo de porcentajes)
       if (data.distribucion && data.vehiculosDentro > 0) {
         const total = data.vehiculosDentro;
-        const calcularAncho = (valor: number) => `${Math.round((valor / total) * 100)}%`;
+        const calcularAncho = (valor: number) =>
+          `${Math.round((valor / total) * 100)}%`;
 
         const distConfig = [
-          { key: 'Estudiantes', idNum: 'dist-estudiantes-num', idBar: 'dist-estudiantes-bar' },
-          { key: 'Docentes', idNum: 'dist-docentes-num', idBar: 'dist-docentes-bar' },
-          { key: 'Administrativos', idNum: 'dist-admin-num', idBar: 'dist-admin-bar' },
-          { key: 'Visitantes', idNum: 'dist-visitantes-num', idBar: 'dist-visitantes-bar' }
+          {
+            key: "Estudiantes",
+            idNum: "dist-estudiantes-num",
+            idBar: "dist-estudiantes-bar",
+          },
+          {
+            key: "Docentes",
+            idNum: "dist-docentes-num",
+            idBar: "dist-docentes-bar",
+          },
+          {
+            key: "Administrativos",
+            idNum: "dist-admin-num",
+            idBar: "dist-admin-bar",
+          },
+          {
+            key: "Visitantes",
+            idNum: "dist-visitantes-num",
+            idBar: "dist-visitantes-bar",
+          },
         ];
 
-        distConfig.forEach(conf => {
+        distConfig.forEach((conf) => {
           const valor = data.distribucion[conf.key] || 0;
           const elNum = document.getElementById(conf.idNum);
           const elBar = document.getElementById(conf.idBar);
@@ -440,17 +818,22 @@ const currentDate = new Date().toLocaleDateString('es-ES');
           if (elBar) elBar.style.width = calcularAncho(valor);
         });
       }
-
     } catch (error) {
-      console.error('Error sincronizando el dashboard:', error);
+      console.error("Error sincronizando el dashboard:", error);
     }
   };
 
   const initDashboard = () => {
     iniciarRelojDashboard();
     cargarDatosDashboard();
+
+    // TIEMPO REAL: Configuramos un intervalo para que recargue las gráficas y la tabla
+    // automáticamente cada 5000 milisegundos (5 segundos).
+    setInterval(() => {
+      cargarDatosDashboard();
+    }, 5000);
   };
 
-  // 💡 SEGURO DE CICLO DE VIDA: Dejamos únicamente el disparador de Astro para evitar peticiones duplicadas
-  document.addEventListener('astro:page-load', initDashboard);
+  // 💡 SEGURO DE CICLO DE VIDA: Dejamos únicamente el disparador de Astro
+  document.addEventListener("astro:page-load", initDashboard);
 </script>

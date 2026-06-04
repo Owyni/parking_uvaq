@@ -41,7 +41,7 @@ const getDashboardStats = async (req, res) => {
     // Obtener vehículos actualmente en el estacionamiento (con todas sus relaciones)
     const accesosActivos = await ControlAccesos.findAll({
       where: {
-        updatedAt: {
+        exitTime: {
           [Op.is]: null
         }
       },
@@ -69,13 +69,13 @@ const getDashboardStats = async (req, res) => {
     });
 
     const actividadReciente = ultimosMovimientos.map(mov => {
-      // Si updatedAt no es nulo, significa que ya salió
-      const esSalida = mov.updatedAt !== null; 
+      // Si exitTime no es nulo, significa que ya salió
+      const esSalida = mov.exitTime !== null; 
       return {
         tipo: esSalida ? 'Salida' : 'Entrada',
         placa: mov.Vehiculo?.placa || 'Desconocida',
         propietario: mov.Vehiculo?.Usuario?.name || 'Desconocido',
-        hora: esSalida ? mov.updatedAt : mov.createdAt
+        hora: esSalida ? mov.exitTime : mov.createdAt
       };
     });
 
