@@ -13,7 +13,7 @@ app.use(helmet()); // Helmet para proteger contra vulnerabilidades comunes (XSS,
 
 // --- CONFIGURACIÓN DE CORS ---
 const corsOptions = {
-  origin: 'http://localhost:4321', 
+  origin: '*', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
   allowedHeaders: ['Content-Type', 'Authorization'], 
   optionsSuccessStatus: 200 

@@ -7,7 +7,6 @@ const currentDate = new Date().toLocaleDateString('es-ES');
 
 <Layout title="Dashboard">
 
-  <!-- Header del Dashboard -->
   <section class="mb-8">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div>
@@ -19,20 +18,29 @@ const currentDate = new Date().toLocaleDateString('es-ES');
           <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
           <span class="text-xs font-medium text-green-700">En línea</span>
         </div>
+        
+        <a href="/registroVisitante" class="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-colors cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+          Visita
+        </a>
+
         <span class="text-xs text-gray-400" id="clock">--/--/----</span>
       </div>
     </div>
   </section>
 
-  <!-- Tarjetas de estadísticas principales -->
-  <StatCard title="Total" value="150" subtitle="Espacios Totales" iconColor="blue">
-  <svg>...</svg>
-</StatCard>
+  <div id="total-espacios-container">
+    <StatCard title="Total" value="---" subtitle="Espacios Totales" iconColor="blue">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+      </svg>
+    </StatCard>
+  </div>
 
-  <!-- Sección principal -->
   <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
 
-    <!-- Gráfica de ocupación -->
     <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8">
       <div class="flex items-center justify-between mb-6">
         <div>
@@ -46,9 +54,7 @@ const currentDate = new Date().toLocaleDateString('es-ES');
         </div>
       </div>
 
-      <!-- Gráfica placeholder -->
       <div class="relative w-full h-56 md:h-64">
-        <!-- Barras de la gráfica -->
         <div class="absolute inset-0 flex items-end justify-between gap-2 px-2">
           <div class="flex-1 flex flex-col items-center gap-1">
             <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg" style="height: 20%"></div>
@@ -106,89 +112,18 @@ const currentDate = new Date().toLocaleDateString('es-ES');
       </div>
     </div>
 
-    <!-- Actividad reciente (1 columna) -->
     <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6">
       <div class="flex items-center justify-between mb-5">
         <h2 class="text-lg font-bold text-gray-900">Actividad Reciente</h2>
         <a href="#" class="text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors">Ver todo</a>
       </div>
 
-      <div class="space-y-4">
-        <!-- Entrada -->
-        <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-          <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />
-            </svg>
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-gray-900 truncate">ABC-1234</p>
-            <p class="text-xs text-gray-500">Entrada - Juan Pérez</p>
-          </div>
-          <span class="text-xs text-gray-400 flex-shrink-0">8:32 AM</span>
+      <div class="space-y-4" id="actividad-reciente">
         </div>
-
-        <!-- Salida -->
-        <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-          <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-gray-900 truncate">XYZ-5678</p>
-            <p class="text-xs text-gray-500">Salida - María López</p>
-          </div>
-          <span class="text-xs text-gray-400 flex-shrink-0">8:28 AM</span>
-        </div>
-
-        <!-- Entrada -->
-        <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-          <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />
-            </svg>
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-gray-900 truncate">DEF-9012</p>
-            <p class="text-xs text-gray-500">Entrada - Carlos Ruiz</p>
-          </div>
-          <span class="text-xs text-gray-400 flex-shrink-0">8:15 AM</span>
-        </div>
-
-        <!-- Entrada -->
-        <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-          <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />
-            </svg>
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-gray-900 truncate">GHI-3456</p>
-            <p class="text-xs text-gray-500">Entrada - Ana Torres</p>
-          </div>
-          <span class="text-xs text-gray-400 flex-shrink-0">8:02 AM</span>
-        </div>
-
-        <!-- Salida -->
-        <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-          <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-gray-900 truncate">JKL-7890</p>
-            <p class="text-xs text-gray-500">Salida - Roberto Díaz</p>
-          </div>
-          <span class="text-xs text-gray-400 flex-shrink-0">7:54 AM</span>
-        </div>
-      </div>
     </div>
 
   </section>
 
-  <!-- Tabla de vehículos actualmente en el estacionamiento -->
   <section class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8 mb-10">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
       <div>
@@ -196,14 +131,12 @@ const currentDate = new Date().toLocaleDateString('es-ES');
         <p class="text-sm text-gray-500 mt-0.5">Vehículos actualmente dentro del campus</p>
       </div>
       <div class="flex items-center gap-3">
-        <!-- Buscador -->
         <div class="relative">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
           <input type="text" placeholder="Buscar placa..." class="pl-9 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all w-48" />
         </div>
-        <!-- Filtro -->
         <button class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 bg-gray-50 border border-gray-200 px-4 py-2 rounded-xl hover:bg-gray-100 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
@@ -213,7 +146,6 @@ const currentDate = new Date().toLocaleDateString('es-ES');
       </div>
     </div>
 
-    <!-- Tabla -->
     <div class="overflow-x-auto">
       <table class="w-full">
         <thead>
@@ -226,144 +158,13 @@ const currentDate = new Date().toLocaleDateString('es-ES');
             <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pr-4">Estado</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-50">
-          <tr class="hover:bg-gray-50/50 transition-colors">
-            <td class="py-3.5 pl-4">
-              <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">ABC-1234</span>
-            </td>
-            <td class="py-3.5">
-              <div>
-                <p class="text-sm font-medium text-gray-900">Juan Pérez</p>
-                <p class="text-xs text-gray-400">Estudiante</p>
-              </div>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">Sedán</span>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">8:32 AM</span>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">2h 15min</span>
-            </td>
-            <td class="py-3.5 pr-4">
-              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full">
-                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                Activo
-              </span>
-            </td>
-          </tr>
-          <tr class="hover:bg-gray-50/50 transition-colors">
-            <td class="py-3.5 pl-4">
-              <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">DEF-9012</span>
-            </td>
-            <td class="py-3.5">
-              <div>
-                <p class="text-sm font-medium text-gray-900">Carlos Ruiz</p>
-                <p class="text-xs text-gray-400">Docente</p>
-              </div>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">SUV</span>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">8:15 AM</span>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">2h 32min</span>
-            </td>
-            <td class="py-3.5 pr-4">
-              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full">
-                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                Activo
-              </span>
-            </td>
-          </tr>
-          <tr class="hover:bg-gray-50/50 transition-colors">
-            <td class="py-3.5 pl-4">
-              <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">GHI-3456</span>
-            </td>
-            <td class="py-3.5">
-              <div>
-                <p class="text-sm font-medium text-gray-900">Ana Torres</p>
-                <p class="text-xs text-gray-400">Administrativo</p>
-              </div>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">Hatchback</span>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">8:02 AM</span>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">2h 45min</span>
-            </td>
-            <td class="py-3.5 pr-4">
-              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full">
-                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                Activo
-              </span>
-            </td>
-          </tr>
-          <tr class="hover:bg-gray-50/50 transition-colors">
-            <td class="py-3.5 pl-4">
-              <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">MNO-4567</span>
-            </td>
-            <td class="py-3.5">
-              <div>
-                <p class="text-sm font-medium text-gray-900">Laura Méndez</p>
-                <p class="text-xs text-gray-400">Estudiante</p>
-              </div>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">Sedán</span>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">7:48 AM</span>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">2h 59min</span>
-            </td>
-            <td class="py-3.5 pr-4">
-              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
-                <span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
-                Prolongado
-              </span>
-            </td>
-          </tr>
-          <tr class="hover:bg-gray-50/50 transition-colors">
-            <td class="py-3.5 pl-4">
-              <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">PQR-8901</span>
-            </td>
-            <td class="py-3.5">
-              <div>
-                <p class="text-sm font-medium text-gray-900">Miguel Hernández</p>
-                <p class="text-xs text-gray-400">Docente</p>
-              </div>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">Pickup</span>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">7:30 AM</span>
-            </td>
-            <td class="py-3.5">
-              <span class="text-sm text-gray-600">3h 17min</span>
-            </td>
-            <td class="py-3.5 pr-4">
-              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full">
-                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                Activo
-              </span>
-            </td>
-          </tr>
-        </tbody>
+        <tbody class="divide-y divide-gray-50" id="tabla-vehiculos">
+          </tbody>
       </table>
     </div>
 
-    <!-- Paginación -->
     <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
-      <p class="text-sm text-gray-500">Mostrando <span class="font-medium text-gray-700">1-5</span> de <span class="font-medium text-gray-700">63</span> vehículos</p>
+      <p class="text-sm text-gray-500">Mostrando <span class="font-medium text-gray-700">1-5</span> de <span class="font-medium text-gray-700">--</span> vehículos</p>
       <div class="flex items-center gap-1">
         <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -374,7 +175,6 @@ const currentDate = new Date().toLocaleDateString('es-ES');
         <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors">2</button>
         <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors">3</button>
         <span class="text-gray-400 text-xs px-1">...</span>
-        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors">13</button>
         <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -384,68 +184,60 @@ const currentDate = new Date().toLocaleDateString('es-ES');
     </div>
   </section>
 
-  <!-- Sección inferior: Distribución por tipo + Acciones rápidas -->
   <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
 
-    <!-- Distribución por tipo de usuario -->
     <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8">
       <h2 class="text-lg font-bold text-gray-900 mb-1">Distribución por Tipo</h2>
       <p class="text-sm text-gray-500 mb-6">Vehículos activos clasificados por rol</p>
 
       <div class="space-y-4">
-        <!-- Estudiantes -->
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <span class="text-sm font-medium text-gray-700">Estudiantes</span>
-            <span class="text-sm font-semibold text-gray-900">38</span>
+            <span class="text-sm font-semibold text-gray-900" id="dist-estudiantes-num">0</span>
           </div>
           <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full" style="width: 60%"></div>
+            <div id="dist-estudiantes-bar" class="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
           </div>
         </div>
 
-        <!-- Docentes -->
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <span class="text-sm font-medium text-gray-700">Docentes</span>
-            <span class="text-sm font-semibold text-gray-900">15</span>
+            <span class="text-sm font-semibold text-gray-900" id="dist-docentes-num">0</span>
           </div>
           <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2.5 rounded-full" style="width: 24%"></div>
+            <div id="dist-docentes-bar" class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
           </div>
         </div>
 
-        <!-- Administrativos -->
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <span class="text-sm font-medium text-gray-700">Administrativos</span>
-            <span class="text-sm font-semibold text-gray-900">7</span>
+            <span class="text-sm font-semibold text-gray-900" id="dist-admin-num">0</span>
           </div>
           <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div class="bg-gradient-to-r from-purple-500 to-purple-600 h-2.5 rounded-full" style="width: 11%"></div>
+            <div id="dist-admin-bar" class="bg-gradient-to-r from-purple-500 to-purple-600 h-2.5 rounded-full" style="width: 0%"></div>
           </div>
         </div>
 
-        <!-- Visitantes -->
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <span class="text-sm font-medium text-gray-700">Visitantes</span>
-            <span class="text-sm font-semibold text-gray-900">3</span>
+            <span class="text-sm font-semibold text-gray-900" id="dist-visitantes-num">0</span>
           </div>
           <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div class="bg-gradient-to-r from-amber-500 to-amber-600 h-2.5 rounded-full" style="width: 5%"></div>
+            <div id="dist-visitantes-bar" class="bg-gradient-to-r from-amber-500 to-amber-600 h-2.5 rounded-full" style="width: 0%"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Acciones rápidas del dashboard -->
     <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8">
       <h2 class="text-lg font-bold text-gray-900 mb-1">Acciones Rápidas</h2>
       <p class="text-sm text-gray-500 mb-6">Operaciones frecuentes del sistema</p>
 
       <div class="grid grid-cols-2 gap-3">
-        <!-- Registrar entrada -->
         <a href="/registro" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300">
           <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -455,7 +247,6 @@ const currentDate = new Date().toLocaleDateString('es-ES');
           <span class="text-xs font-medium text-gray-700 text-center group-hover:text-blue-700">Registrar Entrada</span>
         </a>
 
-        <!-- Registrar salida -->
         <a href="#" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-red-200 hover:bg-red-50/50 transition-all duration-300">
           <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -465,17 +256,15 @@ const currentDate = new Date().toLocaleDateString('es-ES');
           <span class="text-xs font-medium text-gray-700 text-center group-hover:text-red-700">Registrar Salida</span>
         </a>
 
-        <!-- Nuevo usuario -->
-        <a href="/registro" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-green-200 hover:bg-green-50/50 transition-all duration-300">
-          <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center group-hover:bg-green-100 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+        <a href="/registroVisitante" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50/50 transition-all duration-300">
+          <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
-          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-green-700">Nuevo Usuario</span>
+          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-indigo-700">Registrar Visitante</span>
         </a>
 
-        <!-- Generar reporte -->
         <a href="#" class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300">
           <div class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -489,7 +278,6 @@ const currentDate = new Date().toLocaleDateString('es-ES');
 
   </section>
 
-  <!-- Banner de estado del sistema -->
   <section class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
     <div class="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -528,15 +316,141 @@ const currentDate = new Date().toLocaleDateString('es-ES');
         weekday: 'long',
         day: '2-digit',
         month: 'long',
-        year: 'numeric'
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
       });
     };
 
     actualizarHora();
-    // Guardamos el ID numérico nativo del navegador
     clockInterval = window.setInterval(actualizarHora, 1000);
   };
 
-  iniciarRelojDashboard();
-  document.addEventListener('astro:page-load', iniciarRelojDashboard);
+  const cargarDatosDashboard = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.href = '/login';
+        return;
+      }
+
+      const res = await fetch('http://localhost:3000/api/dashboard/stats', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      if (!res.ok) throw new Error('Error al obtener métricas');
+      
+      const data = await res.json();
+
+      // 0. Inyectar dinámicamente la capacidad total en la StatCard de Astro
+      const totalEspaciosContenedor = document.getElementById('total-espacios-container');
+      if (totalEspaciosContenedor && data.espaciosTotales !== undefined) {
+        const valueSpan = totalEspaciosContenedor.querySelector('.text-2xl, .text-3xl, font-bold');
+        if (valueSpan) {
+          valueSpan.textContent = data.espaciosTotales;
+        }
+      }
+
+      // 1. Inyectar Actividad Reciente
+      const contenedorActividad = document.getElementById('actividad-reciente');
+      if (contenedorActividad && data.actividadReciente) {
+        contenedorActividad.innerHTML = data.actividadReciente.map((mov: any) => {
+          const esSalida = mov.tipo === 'Salida';
+          const bgClass = esSalida ? 'bg-red-50' : 'bg-green-50';
+          const textClass = esSalida ? 'text-red-600' : 'text-green-600';
+          const svgPath = esSalida 
+            ? '<path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />'
+            : '<path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14" />';
+
+          const horaString = new Date(mov.hora).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+
+          return `
+            <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+              <div class="w-9 h-9 rounded-lg ${bgClass} flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ${textClass}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  ${svgPath}
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate">${mov.placa}</p>
+                <p class="text-xs text-gray-500">${mov.tipo} - ${mov.propietario}</p>
+              </div>
+              <span class="text-xs text-gray-400 flex-shrink-0">${horaString}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 2. Inyectar Tabla de Vehículos Activos
+      const tablaVehiculos = document.getElementById('tabla-vehiculos');
+      if (tablaVehiculos && data.vehiculosEnEstacionamiento) {
+        tablaVehiculos.innerHTML = data.vehiculosEnEstacionamiento.map((v: any) => {
+          const esProlongado = v.estado === 'Prolongado';
+          const statusBg = esProlongado ? 'bg-amber-50 border-amber-200 text-amber-700' : 'bg-green-50 border-green-200 text-green-700';
+          const dotBg = esProlongado ? 'bg-amber-500' : 'bg-green-500';
+
+          return `
+            <tr class="hover:bg-gray-50/50 transition-colors">
+              <td class="py-3.5 pl-4">
+                <span class="text-sm font-semibold text-gray-900 bg-gray-100 px-2.5 py-1 rounded-lg">${v.placa}</span>
+              </td>
+              <td class="py-3.5">
+                <div>
+                  <p class="text-sm font-medium text-gray-900">${v.propietario}</p>
+                  <p class="text-xs text-gray-400">${v.rol}</p>
+                </div>
+              </td>
+              <td class="py-3.5">
+                <span class="text-sm text-gray-600">${v.tipo}</span>
+              </td>
+              <td class="py-3.5">
+                <span class="text-sm text-gray-600">${v.horaEntrada}</span>
+              </td>
+              <td class="py-3.5">
+                <span class="text-sm text-gray-600">${v.duracion}</span>
+              </td>
+              <td class="py-3.5 pr-4">
+                <span class="inline-flex items-center gap-1.5 text-xs font-medium ${statusBg} border px-2.5 py-1 rounded-full">
+                  <span class="w-1.5 h-1.5 ${dotBg} rounded-full"></span>
+                  ${v.estado}
+                </span>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // 3. Inyectar Distribución (Cálculo de porcentajes)
+      if (data.distribucion && data.vehiculosDentro > 0) {
+        const total = data.vehiculosDentro;
+        const calcularAncho = (valor: number) => `${Math.round((valor / total) * 100)}%`;
+
+        const distConfig = [
+          { key: 'Estudiantes', idNum: 'dist-estudiantes-num', idBar: 'dist-estudiantes-bar' },
+          { key: 'Docentes', idNum: 'dist-docentes-num', idBar: 'dist-docentes-bar' },
+          { key: 'Administrativos', idNum: 'dist-admin-num', idBar: 'dist-admin-bar' },
+          { key: 'Visitantes', idNum: 'dist-visitantes-num', idBar: 'dist-visitantes-bar' }
+        ];
+
+        distConfig.forEach(conf => {
+          const valor = data.distribucion[conf.key] || 0;
+          const elNum = document.getElementById(conf.idNum);
+          const elBar = document.getElementById(conf.idBar);
+          if (elNum) elNum.textContent = valor.toString();
+          if (elBar) elBar.style.width = calcularAncho(valor);
+        });
+      }
+
+    } catch (error) {
+      console.error('Error sincronizando el dashboard:', error);
+    }
+  };
+
+  const initDashboard = () => {
+    iniciarRelojDashboard();
+    cargarDatosDashboard();
+  };
+
+  // 💡 SEGURO DE CICLO DE VIDA: Dejamos únicamente el disparador de Astro para evitar peticiones duplicadas
+  document.addEventListener('astro:page-load', initDashboard);
 </script>

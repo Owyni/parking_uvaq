@@ -6,7 +6,8 @@ const {
   Carreras, 
   Colores, 
   CategoriaEspacios,
-  Usuarios 
+  Usuarios, 
+  TipoVehiculos
 } = require('./src/models');
 
 const startSeeding = async () => {
@@ -20,6 +21,7 @@ const startSeeding = async () => {
     await sequelize.query('TRUNCATE TABLE "Colores" RESTART IDENTITY CASCADE;');
     await sequelize.query('TRUNCATE TABLE "Carreras" RESTART IDENTITY CASCADE;');
     await sequelize.query('TRUNCATE TABLE "CategoriaEspacios" RESTART IDENTITY CASCADE;');
+    await sequelize.query('TRUNCATE TABLE "TipoVehiculos" RESTART IDENTITY CASCADE;');
     console.log('🧹 Tablas limpiadas y contadores reiniciados.');
 
     // 2. Insertamos los roles de forma limpia
@@ -27,12 +29,12 @@ const startSeeding = async () => {
       { name: 'Administrador' }, // ID 1
       { name: 'Estudiante' },    // ID 2
       { name: 'Docente' },       // ID 3
-      { name: 'Visitante' },     // ID 4
+      { name: 'Visitante' }      // ID 4
     ]);
 
     await Colores.bulkCreate([
       { name: 'Blanco' }, { name: 'Negro' }, { name: 'Gris' }, 
-      { name: 'Rojo' }, { name: 'Azul' }
+      { name: 'Rojo' }, { name: 'Azul' }, { name: 'Otro' }
     ]);
 
     await Carreras.bulkCreate([
@@ -46,6 +48,12 @@ const startSeeding = async () => {
       { name: 'Alumnos', totalCapacity: 200 },
       { name: 'Docentes', totalCapacity: 50 },
       { name: 'Oficiales', totalCapacity: 15 }
+    ]);
+
+    await TipoVehiculos.bulkCreate([
+      { name: 'Automóvil' },
+      { name: 'Motocicleta' },
+      { name: 'Camioneta' }
     ]);
 
     // 3. ENCRIPTACIÓN Y CREACIÓN DEL PRIMER ADMINISTRADOR

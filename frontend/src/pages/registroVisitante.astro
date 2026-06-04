@@ -1,0 +1,239 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Registro de Visitante">
+    <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="mb-8">
+            <h1
+                class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight"
+            >
+                Registro de Visitante
+            </h1>
+            <p class="text-sm text-gray-500 mt-1">
+                Alta rápida para vehículos externos al campus universitario.
+            </p>
+        </div>
+
+        <div
+            id="registro-alert"
+            class="hidden max-w-3xl mx-auto mb-6 p-4 rounded-xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+            <span id="registro-alert-text"></span>
+        </div>
+
+        <div
+            class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8"
+        >
+            <form id="visitanteForm" class="space-y-6">
+                <div>
+                    <h3
+                        class="text-sm font-semibold text-gray-700 border-b pb-2 mb-4"
+                    >
+                        Datos del Conductor
+                    </h3>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div>
+                            <label
+                                for="name"
+                                class="block text-sm font-medium text-gray-700 mb-1"
+                                >Nombre Completo <span class="text-red-500"
+                                    >*</span
+                                ></label
+                            >
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                required
+                                placeholder="Ej. Carlos Mendoza"
+                                class="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 mb-4">
+                    <h3
+                        class="text-sm font-semibold text-gray-700 border-b pb-2 mb-4"
+                    >
+                        Datos del Vehículo
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                for="placa"
+                                class="block text-sm font-medium text-gray-700 mb-1"
+                                >Placa <span class="text-red-500">*</span
+                                ></label
+                            >
+                            <input
+                                type="text"
+                                id="placa"
+                                name="placa"
+                                required
+                                placeholder="Ej. ABC-1234"
+                                class="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors uppercase"
+                            />
+                        </div>
+
+                        <div>
+                            <label
+                                for="modelo"
+                                class="block text-sm font-medium text-gray-700 mb-1"
+                                >Modelo / Línea</label
+                            >
+                            <input
+                                type="text"
+                                id="modelo"
+                                name="modelo"
+                                placeholder="Ej. Versa, Jetta, Swift"
+                                class="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            />
+                        </div>
+
+                        <div>
+                            <label
+                                for="tipoVehiculoId"
+                                class="block text-sm font-medium text-gray-700 mb-1"
+                                >Tipo de Vehículo <span class="text-red-500"
+                                    >*</span
+                                ></label
+                            >
+                            <select
+                                id="tipoVehiculoId"
+                                name="tipoVehiculoId"
+                                required
+                                class="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                            >
+                                <option value="" disabled selected
+                                    >Seleccione un tipo...</option
+                                >
+                                <option value="1">Automóvil</option>
+                                <option value="2">Motocicleta</option>
+                                <option value="3">Camioneta</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label
+                                for="color"
+                                class="block text-sm font-medium text-gray-700 mb-1"
+                                >Color del Vehículo</label
+                            >
+                            <select
+                                id="color"
+                                name="color"
+                                class="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                            >
+                                <option value="" disabled selected
+                                    >Seleccione un color...</option
+                                >
+                                <option value="Blanco">Blanco</option>
+                                <option value="Negro">Negro</option>
+                                <option value="Gris">Gris / Plata</option>
+                                <option value="Rojo">Rojo</option>
+                                <option value="Azul">Azul</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class=" flex flex-col sm:flex-row items-center justify-end gap-3 pt-6 mt-8"
+                >
+                    <a
+                        href="/dashboard"
+                        class="w-full sm:w-auto inline-flex items-center justify-center h-11 px-6 text-sm font-medium text-gray-700 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 border border-gray-200 rounded-xl transition-colors cursor-pointer"
+                    >
+                        Cancelar
+                    </a>
+                    <button
+                        type="submit"
+                        id="btnSubmit"
+                        class="w-full sm:w-auto inline-flex items-center justify-center h-11 px-6 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed gap-2 shadow-sm shadow-blue-500/10"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                        Registrar Visitante
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</Layout>
+
+<script>
+  const initRegistroVisitante = () => {
+    const form = document.getElementById("visitanteForm") as HTMLFormElement;
+    const alertBox = document.getElementById("registro-alert");
+    const alertText = document.getElementById("registro-alert-text");
+    const btnSubmit = document.getElementById("btnSubmit") as HTMLButtonElement;
+
+    if (!form) return;
+
+    // 💡 CAMBIO CLAVE: Usar 'onsubmit' en lugar de 'addEventListener' evita 
+    // que se clonen los envíos si Astro recarga la página por detrás.
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+
+      // Ocultar alerta previa y bloquear botón para evitar doble envío manual
+      if (alertBox) alertBox.classList.add("hidden");
+      if (btnSubmit) btnSubmit.disabled = true;
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      const token = localStorage.getItem("token");
+
+      try {
+        const response = await fetch("http://localhost:3000/api/usuarios/visitante", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, 
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          if (alertBox && alertText) {
+            alertBox.className = "max-w-3xl mx-auto mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm font-medium flex items-center gap-2";
+            alertText.innerHTML = "✅ Visitante y vehículo registrados correctamente en el sistema.";
+          }
+          form.reset(); // Limpiamos el formulario para el siguiente
+        } else {
+          const errorData = await response.json();
+          if (alertBox && alertText) {
+            alertBox.className = "max-w-3xl mx-auto mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2";
+            alertText.innerHTML = `❌ ${errorData.message || "Error al registrar el visitante. Revisa los datos."}`;
+          }
+        }
+      } catch (error) {
+        if (alertBox && alertText) {
+          alertBox.className = "max-w-3xl mx-auto mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2";
+          alertText.innerHTML = "❌ No se pudo conectar con el servidor central.";
+        }
+      } finally {
+        // Desbloquear botón
+        if (btnSubmit) btnSubmit.disabled = false;
+      }
+    };
+  };
+
+  // 💡 CAMBIO CLAVE 2: Dejamos ÚNICAMENTE el disparador nativo de Astro
+  document.addEventListener("astro:page-load", initRegistroVisitante);
+</script>
