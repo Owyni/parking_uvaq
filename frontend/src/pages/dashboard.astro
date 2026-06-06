@@ -7,13 +7,9 @@ const currentDate = new Date().toLocaleDateString("es-ES");
 
 <Layout title="Dashboard">
   <section class="mb-8">
-    <div
-      class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-    >
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div>
-        <h1
-          class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight"
-        >
+        <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
           Dashboard
         </h1>
         <p class="text-sm text-gray-500 mt-1">
@@ -21,29 +17,14 @@ const currentDate = new Date().toLocaleDateString("es-ES");
         </p>
       </div>
       <div class="flex items-center gap-3">
-        <div
-          class="inline-flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-1.5"
-        >
+        <div class="inline-flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-1.5">
           <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
           <span class="text-xs font-medium text-green-700">En línea</span>
         </div>
 
-        <a
-          href="/registroVisitante"
-          class="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-colors cursor-pointer"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-3.5 w-3.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2.5"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 4v16m8-8H4"></path>
+        <a href="/registroVisitante" class="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-colors cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
           </svg>
           Visita
         </a>
@@ -53,233 +34,133 @@ const currentDate = new Date().toLocaleDateString("es-ES");
     </div>
   </section>
 
-  <div id="total-espacios-container">
-    <StatCard
-      title="Total"
-      value="---"
-      subtitle="Espacios Totales"
-      iconColor="blue"
-    >
-      <svg
-        class="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-        ></path>
-      </svg>
-    </StatCard>
-  </div>
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div id="total-espacios-container">
+      <StatCard title="Total" value="---" subtitle="Espacios Totales" iconColor="blue">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+        </svg>
+      </StatCard>
+    </div>
+    </section>
 
-  <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
-    <div
-      class="lg:col-span-2 bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8"
-    >
-      <div class="flex items-center justify-between mb-6">
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    
+    <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-1">Distribución por Tipo</h2>
+      <p class="text-sm text-gray-500 mb-6">Vehículos activos clasificados por rol</p>
+
+      <div class="space-y-4">
         <div>
-          <h2 class="text-lg font-bold text-gray-900">Ocupación por Hora</h2>
-          <p class="text-sm text-gray-500 mt-0.5">
-            Distribución de vehículos durante el día
-          </p>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium text-gray-700">Estudiantes</span>
+            <span class="text-sm font-semibold text-gray-900" id="dist-estudiantes-num">0</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2.5">
+            <div id="dist-estudiantes-bar" class="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-          <button
-            class="text-xs font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors"
-            >Hoy</button
-          >
-          <button
-            class="text-xs font-medium text-white bg-blue-600 px-3 py-1.5 rounded-lg"
-            >Semana</button
-          >
-          <button
-            class="text-xs font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors"
-            >Mes</button
-          >
-        </div>
-      </div>
 
-      <div class="relative w-full h-56 md:h-64">
-        <div class="absolute inset-0 flex items-end justify-between gap-2 px-2">
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
-              style="height: 20%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">6am</span>
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium text-gray-700">Docentes</span>
+            <span class="text-sm font-semibold text-gray-900" id="dist-docentes-num">0</span>
           </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
-              style="height: 45%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">7am</span>
+          <div class="w-full bg-gray-100 rounded-full h-2.5">
+            <div id="dist-docentes-bar" class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
           </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
-              style="height: 75%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">8am</span>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium text-gray-700">Administrativos</span>
+            <span class="text-sm font-semibold text-gray-900" id="dist-admin-num">0</span>
           </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-600 to-indigo-500 rounded-t-lg"
-              style="height: 95%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">9am</span>
+          <div class="w-full bg-gray-100 rounded-full h-2.5">
+            <div id="dist-admin-bar" class="bg-gradient-to-r from-purple-500 to-purple-600 h-2.5 rounded-full" style="width: 0%"></div>
           </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-600 to-indigo-500 rounded-t-lg"
-              style="height: 90%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">10am</span>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-sm font-medium text-gray-700">Visitantes</span>
+            <span class="text-sm font-semibold text-gray-900" id="dist-visitantes-num">0</span>
           </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
-              style="height: 80%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">11am</span>
-          </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
-              style="height: 60%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">12pm</span>
-          </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
-              style="height: 50%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">1pm</span>
-          </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
-              style="height: 65%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">2pm</span>
-          </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
-              style="height: 70%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">3pm</span>
-          </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
-              style="height: 55%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">4pm</span>
-          </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg"
-              style="height: 35%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">5pm</span>
-          </div>
-          <div class="flex-1 flex flex-col items-center gap-1">
-            <div
-              class="w-full bg-gradient-to-t from-blue-400 to-blue-300 rounded-t-lg"
-              style="height: 15%"
-            >
-            </div>
-            <span class="text-[10px] text-gray-400">6pm</span>
+          <div class="w-full bg-gray-100 rounded-full h-2.5">
+            <div id="dist-visitantes-bar" class="bg-gradient-to-r from-amber-500 to-amber-600 h-2.5 rounded-full" style="width: 0%"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <div
-      class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6"
-    >
+    <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-1">Acciones Rápidas</h2>
+      <p class="text-sm text-gray-500 mb-6">Operaciones frecuentes del sistema</p>
+
+      <div class="grid grid-cols-2 gap-3">
+        <a href="/control" class="group flex flex-col items-center gap-3 p-4 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300">
+          <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14"></path>
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-blue-700">Entrada</span>
+        </a>
+
+        <a href="/control" class="group flex flex-col items-center gap-3 p-4 rounded-xl border border-gray-100 hover:border-red-200 hover:bg-red-50/50 transition-all duration-300">
+          <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-red-700">Salida</span>
+        </a>
+
+        <a href="/registroVisitante" class="group flex flex-col items-center gap-3 p-4 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50/50 transition-all duration-300">
+          <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-indigo-700">Visitante</span>
+        </a>
+
+        <a href="#" class="group flex flex-col items-center gap-3 p-4 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300">
+          <div class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-gray-700 text-center group-hover:text-purple-700">Reporte</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6">
       <div class="flex items-center justify-between mb-5">
         <h2 class="text-lg font-bold text-gray-900">Actividad Reciente</h2>
-        <a
-          href="#"
-          class="text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
-          >Ver todo</a
-        >
       </div>
-
       <div class="space-y-4" id="actividad-reciente"></div>
     </div>
+
   </section>
 
-  <section
-    class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8 mb-10"
-  >
-    <div
-      class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6"
-    >
+  <section class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8 mb-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
       <div>
-        <h2 class="text-lg font-bold text-gray-900">
-          Vehículos en Estacionamiento
-        </h2>
-        <p class="text-sm text-gray-500 mt-0.5">
-          Vehículos actualmente dentro del campus
-        </p>
+        <h2 class="text-lg font-bold text-gray-900">Vehículos en Estacionamiento</h2>
+        <p class="text-sm text-gray-500 mt-0.5">Vehículos actualmente dentro del campus</p>
       </div>
       <div class="flex items-center gap-3">
         <div class="relative">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
-          <input
-            type="text"
-            placeholder="Buscar placa..."
-            class="pl-9 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all w-48"
-          />
+          <input type="text" placeholder="Buscar placa..." class="pl-9 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all w-48" />
         </div>
-        <button
-          class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 bg-gray-50 border border-gray-200 px-4 py-2 rounded-xl hover:bg-gray-100 transition-colors"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-            ></path>
+        <button class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 bg-gray-50 border border-gray-200 px-4 py-2 rounded-xl hover:bg-gray-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
           </svg>
           Filtrar
         </button>
@@ -290,361 +171,52 @@ const currentDate = new Date().toLocaleDateString("es-ES");
       <table class="w-full">
         <thead>
           <tr class="border-b border-gray-100">
-            <th
-              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pl-4"
-              >Placa</th
-            >
-            <th
-              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3"
-              >Propietario</th
-            >
-            <th
-              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3"
-              >Tipo</th
-            >
-            <th
-              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3"
-              >Hora Entrada</th
-            >
-            <th
-              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3"
-              >Duración</th
-            >
-            <th
-              class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pr-4"
-              >Estado</th
-            >
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pl-4">Placa</th>
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Propietario</th>
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Tipo</th>
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Hora Entrada</th>
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3">Duración</th>
+            <th class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider pb-3 pr-4">Estado</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-50" id="tabla-vehiculos"> </tbody>
+        <tbody class="divide-y divide-gray-50" id="tabla-vehiculos"></tbody>
       </table>
     </div>
 
-    <div
-      class="flex items-center justify-between mt-6 pt-4 border-t border-gray-100"
-    >
+    <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
       <p class="text-sm text-gray-500">
-        Mostrando <span class="font-medium text-gray-700">1-5</span> de <span
-          class="font-medium text-gray-700">--</span
-        > vehículos
+        Mostrando <span class="font-medium text-gray-700">1-5</span> de <span class="font-medium text-gray-700">--</span> vehículos
       </p>
       <div class="flex items-center gap-1">
-        <button
-          class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15 19l-7-7 7-7"></path>
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
           </svg>
         </button>
-        <button
-          class="w-8 h-8 flex items-center justify-center rounded-lg text-white bg-blue-600 text-xs font-medium"
-          >1</button
-        >
-        <button
-          class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors"
-          >2</button
-        >
-        <button
-          class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors"
-          >3</button
-        >
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-white bg-blue-600 text-xs font-medium">1</button>
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors">2</button>
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 text-xs font-medium transition-colors">3</button>
         <span class="text-gray-400 text-xs px-1">...</span>
-        <button
-          class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M9 5l7 7-7 7"></path>
+        <button class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
           </svg>
         </button>
       </div>
     </div>
   </section>
 
-  <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
-    <div
-      class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8"
-    >
-      <h2 class="text-lg font-bold text-gray-900 mb-1">
-        Distribución por Tipo
-      </h2>
-      <p class="text-sm text-gray-500 mb-6">
-        Vehículos activos clasificados por rol
-      </p>
-
-      <div class="space-y-4">
-        <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="text-sm font-medium text-gray-700">Estudiantes</span>
-            <span
-              class="text-sm font-semibold text-gray-900"
-              id="dist-estudiantes-num">0</span
-            >
-          </div>
-          <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div
-              id="dist-estudiantes-bar"
-              class="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full"
-              style="width: 0%"
-            >
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="text-sm font-medium text-gray-700">Docentes</span>
-            <span
-              class="text-sm font-semibold text-gray-900"
-              id="dist-docentes-num">0</span
-            >
-          </div>
-          <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div
-              id="dist-docentes-bar"
-              class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2.5 rounded-full"
-              style="width: 0%"
-            >
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="text-sm font-medium text-gray-700"
-              >Administrativos</span
-            >
-            <span
-              class="text-sm font-semibold text-gray-900"
-              id="dist-admin-num">0</span
-            >
-          </div>
-          <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div
-              id="dist-admin-bar"
-              class="bg-gradient-to-r from-purple-500 to-purple-600 h-2.5 rounded-full"
-              style="width: 0%"
-            >
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="text-sm font-medium text-gray-700">Visitantes</span>
-            <span
-              class="text-sm font-semibold text-gray-900"
-              id="dist-visitantes-num">0</span
-            >
-          </div>
-          <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div
-              id="dist-visitantes-bar"
-              class="bg-gradient-to-r from-amber-500 to-amber-600 h-2.5 rounded-full"
-              style="width: 0%"
-            >
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8"
-    >
-      <h2 class="text-lg font-bold text-gray-900 mb-1">Acciones Rápidas</h2>
-      <p class="text-sm text-gray-500 mb-6">
-        Operaciones frecuentes del sistema
-      </p>
-
-      <div class="grid grid-cols-2 gap-3">
-        <a
-          href="/control"
-          class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300"
-        >
-          <div
-            class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-blue-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M11 16l-4-4m0 0l4-4m-4 4h14"></path>
-            </svg>
-          </div>
-          <span
-            class="text-xs font-medium text-gray-700 text-center group-hover:text-blue-700"
-            >Registrar Entrada</span
-          >
-        </a>
-
-        <a
-          href="/control"
-          class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-red-200 hover:bg-red-50/50 transition-all duration-300"
-        >
-          <div
-            class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-red-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-            </svg>
-          </div>
-          <span
-            class="text-xs font-medium text-gray-700 text-center group-hover:text-red-700"
-            >Registrar Salida</span
-          >
-        </a>
-
-        <a
-          href="/registroVisitante"
-          class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50/50 transition-all duration-300"
-        >
-          <div
-            class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-indigo-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-              ></path>
-            </svg>
-          </div>
-          <span
-            class="text-xs font-medium text-gray-700 text-center group-hover:text-indigo-700"
-            >Registrar Visitante</span
-          >
-        </a>
-
-        <a
-          href="#"
-          class="group flex flex-col items-center gap-3 p-5 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300"
-        >
-          <div
-            class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-purple-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              ></path>
-            </svg>
-          </div>
-          <span
-            class="text-xs font-medium text-gray-700 text-center group-hover:text-purple-700"
-            >Generar Reporte</span
-          >
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section
-    class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-6 md:p-8 flex flex-col md:flex-row items-center gap-6"
-  >
-    <div
-      class="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-7 w-7 text-blue-600"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-        ></path>
+  <section class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+    <div class="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
       </svg>
     </div>
     <div class="flex-1 text-center md:text-left">
-      <h3 class="font-semibold text-gray-900 mb-1">
-        Sistema Operando con Normalidad
-      </h3>
+      <h3 class="font-semibold text-gray-900 mb-1">Sistema Operando con Normalidad</h3>
       <p class="text-sm text-gray-600 leading-relaxed">
-        Todos los sensores y cámaras están funcionando correctamente. Última
-        sincronización: hace 2 minutos. Tiempo de actividad: 99.8%.
+        Los cambios se reflejarán en tiempo real. No se requieren acciones adicionales por parte del usuario.
       </p>
-    </div>
-    <div class="flex-shrink-0">
-      <a
-        href="#"
-        class="inline-flex items-center gap-2 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-xl transition-colors"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-          ></path>
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-        </svg>
-        Configuración
-      </a>
     </div>
   </section>
 </Layout>
