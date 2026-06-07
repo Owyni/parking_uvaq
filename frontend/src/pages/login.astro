@@ -421,7 +421,11 @@ import Layout from "../layouts/Layout.astro";
         if (response.ok) {
           localStorage.setItem("token", result.token);
           localStorage.setItem("user", JSON.stringify(result.user));
+          if (result.user.role === 'Administrador') {
           window.location.href = "/dashboard";
+          } else {
+            window.location.href = "/vehiculos";
+          }
         } else {
           errorText.textContent = result.message || "Credenciales incorrectas.";
           errorDiv.classList.remove("hidden");

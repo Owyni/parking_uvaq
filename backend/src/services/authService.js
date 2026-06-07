@@ -1,9 +1,9 @@
-const { Usuarios, Roles } = require('../models'); 
+const { Usuarios, Roles } = require('../models');
 const bcrypt = require('bcryptjs');
-const { generateAccessToken } = require('../middleware/auth'); 
+const { generateAccessToken } = require('../middleware/auth');
 
 const loginAdminService = async (correo, contrasena) => {
-  const user = await Usuarios.findOne({ 
+  const user = await Usuarios.findOne({
     where: { correo },
     include: [{ model: Roles }]
   });
@@ -13,9 +13,10 @@ const loginAdminService = async (correo, contrasena) => {
   }
 
   const roleName = user.Role ? user.Role.name : (user.Roles ? user.Roles.name : 'Estudiante');
-  
-  if (roleName !== 'Administrador') {
-    throw new Error('Acceso restringido. Este sistema es exclusivo para personal autorizado.');
+
+  // Permitimos el acceso a Administradores y Estudiantes
+  if (roleName == 'Visitante') {
+    throw new Error('Acceso restringido. Rol no autorizado para ingresar al sistema.');
   }
 
   // Comparar la contraseña enviada con la encriptada en la BD

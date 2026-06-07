@@ -35,8 +35,17 @@ const { title } = Astro.props;
     <script>
       const verificarSeguridadFrontend = () => {
         const token = localStorage.getItem("token");
-        
-        // Normalizamos la ruta quitando diagonales extras al final
+        const userStr = localStorage.getItem("user");
+        let user = null;
+
+        if (userStr) {
+          try {
+            user = JSON.parse(userStr);
+          } catch (e) {
+            console.error("Error al leer datos del usuario");
+          }
+        }
+
         let currentPath = window.location.pathname;
         if (currentPath.endsWith("/") && currentPath !== "/") {
           currentPath = currentPath.slice(0, -1);
@@ -50,11 +59,29 @@ const { title } = Astro.props;
           return;
         }
 
-        // 2. Si SÍ hay token, SOLO lo bloqueamos si intenta entrar explícitamente a "/login"
-        // Quitamos por completo la restricción de la raíz "/" para que puedas visitarla libremente
-        if (token && currentPath === "/login") {
-          window.location.href = "/dashboard";
-          return;
+        // 2. Si SÍ hay token, aplicamos las reglas de roles
+        if (token && user) {
+          // Si intentan ir al login teniendo sesión, los redirigimos a su panel correspondiente
+          if (currentPath === "/login") {
+            window.location.href =
+              user.role === "Administrador" ? "/dashboard" : "/vehiculos";
+            return;
+          }
+
+          // 3. RESTRICCIÓN PARA NO ADMINISTRADORES (Estudiantes)
+          if (user.role !== "Administrador") {
+            // Lista de rutas que el estudiante SÍ puede visitar
+            const rutasPermitidasEstudiante = ["/vehiculos", "/"];
+
+            // Si intenta entrar a una ruta que no está en su lista permitida, lo devolvemos a /vehiculos
+            if (!rutasPermitidasEstudiante.includes(currentPath)) {
+              console.warn(
+                "Bloqueo de seguridad: Rol no autorizado para esta ruta.",
+              );
+              window.location.href = "/vehiculos";
+              return;
+            }
+          }
         }
       };
 
