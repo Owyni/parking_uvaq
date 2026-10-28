@@ -22,11 +22,18 @@ const createCheckoutSession = async (req, res) => {
       });
     }
 
-    // Create a pending student first; access remains blocked until the webhook confirms payment.
+    // Validate optional vehicle data before creating a pending record.
+    const placa = String(req.body.placa || '').trim();
+    const tipoVehiculoId = String(req.body.tipoVehiculoId || '').trim();
+    if ((placa && !tipoVehiculoId) || (!placa && tipoVehiculoId)) {
+      return res.status(400).json({ message: 'Para registrar vehículo, indica placa y tipo de vehículo.' });
+    }
+
     user = await createPendingStudent(req.body);
     await attachOptionalVehicle(user, req.body);
-    const frontendUrl = (process.env.FRONTEND_URL || 'http://localhost:4321').replace(/\/$/, '');
 
+    const frontendUrl = (process.env.FRONTEND_URL || 'http://localhost:4321')
+      .split(',')[0].trim().replace(/\\/$/, '');
     const session = await client.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
@@ -47,17 +54,20 @@ const createCheckoutSession = async (req, res) => {
       }],
       success_url: `${frontendUrl}/pago-estudiante?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${frontendUrl}/pago-estudiante?cancelled=1`
-    }, {
-      idempotencyKey: `student-registration-${user.id}`
-    });
+    }, { idempotencyKey: `student-registration-${user.id}` });
 
     await user.update({ stripeCheckoutSessionId: session.id });
     return res.status(201).json({ checkoutUrl: session.url });
   } catch (error) {
     console.error('Error creando Checkout de estudiante:', error);
     if (user) {
-      try { await user.destroy(); } catch (cleanupError) {
-        console.error('No se pudo limpiar el usuario pendiente:', cleanupError);
+      try {
+        // Keep a failed record for auditability rather than deleting after optional vehicle/Stripe side effects.
+        if (user.paymentStatus === 'pending' && !user.stripeCheckoutSessionId) {
+          await user.update({ paymentStatus: 'failed' });
+        }
+      } catch (cleanupError) {
+        console.error('No se pudo actualizar el usuario pendiente:', cleanupError);
       }
     }
     return res.status(error.statusCode || 500).json({
