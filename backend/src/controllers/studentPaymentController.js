@@ -1,6 +1,6 @@
 const Stripe = require('stripe');
 const { Usuarios } = require('../models');
-const { createPendingStudent } = require('../services/studentRegistrationService');
+const { createPendingStudent, attachOptionalVehicle } = require('../services/studentRegistrationService');
 
 const stripe = () => {
   if (!process.env.STRIPE_SECRET_KEY) {
