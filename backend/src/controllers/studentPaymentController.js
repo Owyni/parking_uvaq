@@ -24,6 +24,7 @@ const createCheckoutSession = async (req, res) => {
 
     // Create a pending student first; access remains blocked until the webhook confirms payment.
     user = await createPendingStudent(req.body);
+    await attachOptionalVehicle(user, req.body);
     const frontendUrl = (process.env.FRONTEND_URL || 'http://localhost:4321').replace(/\/$/, '');
 
     const session = await client.checkout.sessions.create({
