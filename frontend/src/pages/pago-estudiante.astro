@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Pago de registro">
+  <main class="mx-auto max-w-2xl px-5 py-16">
+    <section class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+      <p class="text-xs font-semibold uppercase tracking-[.18em] text-blue-700">UVAQ Parking</p>
+      <h1 class="mt-3 text-3xl font-bold text-slate-900">Estado de tu registro</h1>
+      <p id="payment-message" class="mt-4 text-slate-600" aria-live="polite">Estamos verificando el estado del pago...</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href="/login" class="rounded-lg bg-blue-700 px-5 py-3 font-semibold text-white">Ir a iniciar sesión</a>
+        <a href="/registro-estudiante" class="rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700">Volver al registro</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const initPaymentStatus = async () => {
+      const message = document.getElementById("payment-message");
+      const url = new URL(window.location.href);
+      if (url.searchParams.get("cancelled") === "1") {
+        if (message) message.textContent = "El pago se canceló. No se activó ninguna cuenta. Puedes volver al registro e intentarlo de nuevo.";
+        return;
+      }
+      const sessionId = url.searchParams.get("session_id");
+      if (!sessionId) {
+        if (message) message.textContent = "No se recibió una sesión de pago. Puedes volver al registro para comenzar.";
+        return;
+      }
+      try {
+        const api = import.meta.env.PUBLIC_API_URL || "http://localhost:3000";
+        const response = await fetch(`${api}/api/payments/stripe/status?session_id=${encodeURIComponent(sessionId)}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || "No se pudo verificar el pago.");
+        if (data.paymentStatus === "paid") {
+          if (message) message.textContent = "¡Pago confirmado por Stripe! Tu acceso de estudiante está habilitado. Ya puedes iniciar sesión.";
+        } else {
+          if (message) message.textContent = "Stripe todavía no confirma el pago. Si pagaste mediante un método con confirmación diferida, espera un momento y vuelve a consultar esta página.";
+        }
+      } catch {
+        if (message) message.textContent = "No pudimos consultar el pago. Si ya pagaste, espera la confirmación de Stripe antes de iniciar sesión.";
+      }
+    };
+    initPaymentStatus();
+    document.addEventListener("astro:page-load", initPaymentStatus);
+  </script>
+</Layout>

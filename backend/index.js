@@ -6,38 +6,44 @@ const sequelize = require('./src/config/db');
 require('./src/models');
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT || 3000);
 
-// --- MIDDLEWARES DE SEGURIDAD ---
-app.use(helmet()); // Helmet para proteger contra vulnerabilidades comunes (XSS, clickjacking, etc.)
+app.use(helmet());
 
-// --- CONFIGURACIÓN DE CORS ---
-const corsOptions = {
-  origin: 'http://localhost:4321', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-  allowedHeaders: ['Content-Type', 'Authorization'], 
-  optionsSuccessStatus: 200 
-};
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:4321')
+  .split(',')
+  .map((origin) => origin.trim().replace(/\/$/, ''));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error('Origen no permitido por CORS'));
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
+}));
 
-app.use(cors(corsOptions)); // Cors con sus configuraciones
+// Stripe requires the unparsed body to verify the webhook signature.
+app.post(
+  '/api/payments/stripe/webhook',
+  express.raw({ type: 'application/json' }),
+  require('./src/controllers/studentPaymentController').handleStripeWebhook
+);
 
-// Middleware para entender JSON
-app.use(express.json()); 
+app.use(express.json());
 
-// --- RUTAS ---
 app.use('/api/auth', require('./src/routes/authRoutes'));
 app.use('/api/usuarios', require('./src/routes/userRoutes'));
+app.use('/api/payments/stripe', require('./src/routes/studentPaymentRoutes'));
 app.use('/api/dashboard', require('./src/routes/dashboardRoutes'));
 app.use('/api/parking', require('./src/routes/parkingRoutes'));
 
-// Sincronización de Base de Datos
 sequelize.sync({ alter: true })
   .then(() => {
     console.log('✅ Base de datos conectada y sincronizada');
-    app.listen(PORT, () => {
-      console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-    });
+    app.listen(PORT, () => console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`));
   })
-  .catch(err => {
+  .catch((err) => {
     console.error('❌ Error al conectar la base de datos:', err);
+    process.exitCode = 1;
   });
