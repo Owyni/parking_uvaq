@@ -2,48 +2,20 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
 const Usuarios = sequelize.define('Usuarios', {
-  name: { 
-    type: DataTypes.STRING, 
-    allowNull: false 
-  },
-  matricula: { 
-    type: DataTypes.STRING, 
-    allowNull: false, 
-    unique: true 
-  },
-  correo: { 
-    type: DataTypes.STRING, 
-    allowNull: false, 
-    unique: true, 
-    validate: { 
-      isEmail: true 
-    } 
-  },
-  // ¡Agregamos la contraseña!
-  contrasena: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  // Agregamos la llave foránea para vincularlo con la tabla Roles
-  roleId: {
-    type: DataTypes.INTEGER,
+  name: { type: DataTypes.STRING, allowNull: false },
+  matricula: { type: DataTypes.STRING, allowNull: false, unique: true },
+  correo: { type: DataTypes.STRING, allowNull: false, unique: true, validate: { isEmail: true } },
+  contrasena: { type: DataTypes.STRING, allowNull: false },
+  roleId: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'Roles', key: 'id' } },
+  carreraId: { type: DataTypes.INTEGER, allowNull: true, references: { model: 'Carreras', key: 'id' } },
+  paymentStatus: {
+    type: DataTypes.ENUM('not_required', 'pending', 'paid', 'failed'),
     allowNull: false,
-    references: {
-      model: 'Roles',
-      key: 'id'
-    }
+    defaultValue: 'not_required'
   },
-  // Agregamos la llave foránea para vincularlo con la tabla Carreras
-  carreraId: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    references: {
-      model: 'Carreras',
-      key: 'id'
-    }
-  }
-}, { 
-  freezeTableName: true 
-});
+  stripeCheckoutSessionId: { type: DataTypes.STRING, allowNull: true, unique: true },
+  stripePaymentIntentId: { type: DataTypes.STRING, allowNull: true },
+  paidAt: { type: DataTypes.DATE, allowNull: true }
+}, { freezeTableName: true });
 
 module.exports = Usuarios;
