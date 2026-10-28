@@ -3,179 +3,68 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Registro de Visitante">
-    <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div class="mb-8">
-            <h1
-                class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight"
-            >
-                Registro de Visitante
-            </h1>
-            <p class="text-sm text-gray-500 mt-1">
-                Alta rápida para vehículos externos al campus universitario.
-            </p>
+  <div class="visitor-page" data-page="visitor">
+    <header class="visitor-heading">
+      <div><p class="visitor-kicker">ADMISIÓN TEMPORAL</p><h1>Registro de visitante</h1><p>Da de alta al conductor y su vehículo antes de autorizar el acceso al campus.</p></div>
+      <div class="visitor-ticket" aria-hidden="true"><span>UVAQ</span><strong>VISITA</strong><small>ACCESO VEHICULAR</small></div>
+    </header>
+
+    <div id="registro-alert" class="hidden visitor-alert" role="status" aria-live="polite"><span id="registro-alert-text"></span></div>
+
+    <form id="visitanteForm" class="visitor-form">
+      <section class="visitor-section">
+        <div class="visitor-section-title"><span>01</span><div><h2>Conductor</h2><p>Persona responsable durante su visita</p></div></div>
+        <div class="visitor-fields driver-field">
+          <label for="name">Nombre completo <em>*</em><input type="text" id="name" name="name" required placeholder="Nombre y apellidos" autocomplete="name" /></label>
         </div>
-
-        <div
-            id="registro-alert"
-            class="hidden max-w-3xl mx-auto mb-6 p-4 rounded-xl text-sm font-medium flex items-center gap-2 transition-all"
-        >
-            <span id="registro-alert-text"></span>
+      </section>
+      <section class="visitor-section">
+        <div class="visitor-section-title"><span>02</span><div><h2>Vehículo</h2><p>Información para identificarlo en el estacionamiento</p></div></div>
+        <div class="visitor-fields">
+          <label for="placa">Matrícula <em>*</em><input type="text" id="placa" name="placa" required placeholder="ABC-1234" class="uppercase" autocomplete="off" /></label>
+          <label for="modelo">Marca o modelo<input type="text" id="modelo" name="modelo" placeholder="Ej. Versa, Jetta" /></label>
+          <label for="tipoVehiculoId">Tipo de vehículo <em>*</em>
+            <select id="tipoVehiculoId" name="tipoVehiculoId" required><option value="" disabled selected>Seleccionar tipo</option><option value="1">Automóvil</option><option value="2">Motocicleta</option><option value="3">Camioneta</option></select>
+          </label>
+          <label for="color">Color
+            <select id="color" name="color"><option value="" disabled selected>Seleccionar color</option><option value="Blanco">Blanco</option><option value="Negro">Negro</option><option value="Gris">Gris / plata</option><option value="Rojo">Rojo</option><option value="Azul">Azul</option><option value="Otro">Otro</option></select>
+          </label>
         </div>
-
-        <div
-            class="bg-white rounded-2xl shadow-sm shadow-gray-200/50 border border-gray-100 p-6 md:p-8"
-        >
-            <form id="visitanteForm" class="space-y-6">
-                <div>
-                    <h3
-                        class="text-sm font-semibold text-gray-700 border-b pb-2 mb-4"
-                    >
-                        Datos del Conductor
-                    </h3>
-                    <div class="grid grid-cols-1 gap-4">
-                        <div>
-                            <label
-                                for="name"
-                                class="block text-sm font-medium text-gray-700 mb-1"
-                                >Nombre Completo <span class="text-red-500"
-                                    >*</span
-                                ></label
-                            >
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                required
-                                placeholder="Ej. Carlos Mendoza"
-                                class="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-8 mb-4">
-                    <h3
-                        class="text-sm font-semibold text-gray-700 border-b pb-2 mb-4"
-                    >
-                        Datos del Vehículo
-                    </h3>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label
-                                for="placa"
-                                class="block text-sm font-medium text-gray-700 mb-1"
-                                >Placa <span class="text-red-500">*</span
-                                ></label
-                            >
-                            <input
-                                type="text"
-                                id="placa"
-                                name="placa"
-                                required
-                                placeholder="Ej. ABC-1234"
-                                class="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors uppercase"
-                            />
-                        </div>
-
-                        <div>
-                            <label
-                                for="modelo"
-                                class="block text-sm font-medium text-gray-700 mb-1"
-                                >Modelo / Línea</label
-                            >
-                            <input
-                                type="text"
-                                id="modelo"
-                                name="modelo"
-                                placeholder="Ej. Versa, Jetta, Swift"
-                                class="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                            />
-                        </div>
-
-                        <div>
-                            <label
-                                for="tipoVehiculoId"
-                                class="block text-sm font-medium text-gray-700 mb-1"
-                                >Tipo de Vehículo <span class="text-red-500"
-                                    >*</span
-                                ></label
-                            >
-                            <select
-                                id="tipoVehiculoId"
-                                name="tipoVehiculoId"
-                                required
-                                class="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
-                            >
-                                <option value="" disabled selected
-                                    >Seleccione un tipo...</option
-                                >
-                                <option value="1">Automóvil</option>
-                                <option value="2">Motocicleta</option>
-                                <option value="3">Camioneta</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label
-                                for="color"
-                                class="block text-sm font-medium text-gray-700 mb-1"
-                                >Color del Vehículo</label
-                            >
-                            <select
-                                id="color"
-                                name="color"
-                                class="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
-                            >
-                                <option value="" disabled selected
-                                    >Seleccione un color...</option
-                                >
-                                <option value="Blanco">Blanco</option>
-                                <option value="Negro">Negro</option>
-                                <option value="Gris">Gris / Plata</option>
-                                <option value="Rojo">Rojo</option>
-                                <option value="Azul">Azul</option>
-                                <option value="Otro">Otro</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    class=" flex flex-col sm:flex-row items-center justify-end gap-3 pt-6 mt-8"
-                >
-                    <a
-                        href="/dashboard"
-                        class="w-full sm:w-auto inline-flex items-center justify-center h-11 px-6 text-sm font-medium text-gray-700 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 border border-gray-200 rounded-xl transition-colors cursor-pointer"
-                    >
-                        Cancelar
-                    </a>
-                    <button
-                        type="submit"
-                        id="btnSubmit"
-                        class="w-full sm:w-auto inline-flex items-center justify-center h-11 px-6 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed gap-2 shadow-sm shadow-blue-500/10"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-4 w-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                            ></path>
-                        </svg>
-                        Registrar Visitante
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+      </section>
+      <footer class="visitor-actions"><a href="/dashboard">Cancelar</a><button type="submit" id="btnSubmit">Registrar visita</button></footer>
+    </form>
+  </div>
 </Layout>
+
+<style is:global>
+  body:has([data-page="visitor"]) .visitor-page { max-width:980px; margin:auto; }
+  body:has([data-page="visitor"]) .visitor-heading { display:flex; justify-content:space-between; align-items:center; gap:28px; margin:4px 0 26px; }
+  body:has([data-page="visitor"]) .visitor-kicker { margin:0 0 9px; color:#0033a1; font-size:10px; font-weight:750; letter-spacing:.15em; }
+  body:has([data-page="visitor"]) .visitor-heading h1 { margin:0; font-size:34px; letter-spacing:-.04em; }
+  body:has([data-page="visitor"]) .visitor-heading p:last-child { max-width:560px; margin:8px 0 0; color:#68768c; font-size:13px; }
+  body:has([data-page="visitor"]) .visitor-ticket { display:grid; min-width:148px; min-height:104px; align-content:center; padding:16px; color:#0033a1; background:#ffce00; border-radius:4px; text-align:center; transform:rotate(2deg); }
+  body:has([data-page="visitor"]) .visitor-ticket span { font-size:10px; font-weight:800; letter-spacing:.12em; }
+  body:has([data-page="visitor"]) .visitor-ticket strong { font-size:24px; letter-spacing:.04em; }
+  body:has([data-page="visitor"]) .visitor-ticket small { font-size:8px; font-weight:700; letter-spacing:.1em; }
+  body:has([data-page="visitor"]) .visitor-form { background:#fff; border:1px solid #dce3ed; border-radius:12px; }
+  body:has([data-page="visitor"]) .visitor-section { padding:26px 30px; }
+  body:has([data-page="visitor"]) .visitor-section + .visitor-section { border-top:1px solid #e6ebf2; }
+  body:has([data-page="visitor"]) .visitor-section-title { display:flex; align-items:flex-start; gap:14px; margin-bottom:22px; }
+  body:has([data-page="visitor"]) .visitor-section-title > span { color:#0033a1; font-size:11px; font-weight:800; letter-spacing:.12em; padding-top:3px; }
+  body:has([data-page="visitor"]) .visitor-section-title h2 { margin:0; color:#19263b; font-size:17px; }
+  body:has([data-page="visitor"]) .visitor-section-title p { margin:4px 0 0; color:#77859a; font-size:11px; }
+  body:has([data-page="visitor"]) .visitor-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 22px; padding-left:28px; }
+  body:has([data-page="visitor"]) .visitor-fields label { display:grid; gap:7px; color:#405069; font-size:11px; font-weight:650; }
+  body:has([data-page="visitor"]) .visitor-fields em { color:#a04132; font-style:normal; }
+  body:has([data-page="visitor"]) .visitor-fields input, body:has([data-page="visitor"]) .visitor-fields select { min-height:44px; padding:0 12px; color:#23334b; font-size:13px; }
+  body:has([data-page="visitor"]) .driver-field { grid-template-columns:minmax(0,1fr); }
+  body:has([data-page="visitor"]) .visitor-actions { display:flex; align-items:center; justify-content:flex-end; gap:20px; padding:19px 30px; border-top:1px solid #e6ebf2; background:#fafbfd; }
+  body:has([data-page="visitor"]) .visitor-actions a { color:#64738a; font-size:12px; text-decoration:none; }
+  body:has([data-page="visitor"]) .visitor-actions button { min-height:44px; padding:0 22px; color:#fff; background:#0033a1; border:0; border-radius:7px; font-size:12px; font-weight:650; cursor:pointer; }
+  body:has([data-page="visitor"]) .visitor-actions button:hover { background:#002575; }
+  body:has([data-page="visitor"]) .visitor-alert:not(.hidden) { display:block; margin-bottom:14px; padding:12px 15px; border:1px solid #d5e5d5; background:#f0f7f0; color:#315b38; font-size:12px; }
+  @media(max-width:620px) { body:has([data-page="visitor"]) .visitor-heading { align-items:flex-start; } body:has([data-page="visitor"]) .visitor-ticket { min-width:102px; min-height:80px; padding:8px; } body:has([data-page="visitor"]) .visitor-ticket strong { font-size:18px; } body:has([data-page="visitor"]) .visitor-fields { grid-template-columns:1fr; padding-left:0; } body:has([data-page="visitor"]) .visitor-section { padding:21px 18px; } body:has([data-page="visitor"]) .visitor-actions { padding:15px 18px; } }
+</style>
 
 <script>
   const initRegistroVisitante = () => {
@@ -212,20 +101,20 @@ import Layout from "../layouts/Layout.astro";
         if (response.ok) {
           if (alertBox && alertText) {
             alertBox.className = "max-w-3xl mx-auto mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm font-medium flex items-center gap-2";
-            alertText.innerHTML = "✅ Visitante y vehículo registrados correctamente en el sistema.";
+            alertText.innerHTML = "Visita registrada correctamente. El acceso ya puede validarse en el control.";
           }
           form.reset(); // Limpiamos el formulario para el siguiente
         } else {
           const errorData = await response.json();
           if (alertBox && alertText) {
             alertBox.className = "max-w-3xl mx-auto mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2";
-            alertText.innerHTML = `❌ ${errorData.message || "Error al registrar el visitante. Revisa los datos."}`;
+            alertText.innerHTML = errorData.message || "No se pudo registrar la visita. Revisa los datos.";
           }
         }
       } catch (error) {
         if (alertBox && alertText) {
           alertBox.className = "max-w-3xl mx-auto mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2";
-          alertText.innerHTML = "❌ No se pudo conectar con el servidor central.";
+          alertText.innerHTML = "No se pudo conectar con el servidor central.";
         }
       } finally {
         // Desbloquear botón

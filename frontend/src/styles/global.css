@@ -1,1 +1,88 @@
 @import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --brand: #0033a1;
+  --brand-deep: #001f68;
+  --brand-soft: #eaf0fb;
+  --gold: #ffce00;
+  --ink: #17243b;
+  --muted: #65738a;
+  --line: #e1e7ef;
+  --paper: #fff;
+  --canvas: #f4f6f9;
+  font-family: Inter, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; min-height: 100%; background: var(--canvas); }
+body { min-height: 100vh; margin: 0; color: var(--ink); background: var(--canvas) !important; -webkit-font-smoothing: antialiased; }
+::selection { color: var(--brand-deep); background: #ffce0080; }
+a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+a { text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--gold) !important; outline-offset: 3px; }
+
+/* Application frame */
+nav { position: sticky; top: 0; z-index: 50; color: #fff !important; background: var(--brand) !important; border-bottom: 4px solid var(--gold); box-shadow: 0 8px 22px #001f6820 !important; backdrop-filter: none !important; }
+nav > div { width: min(100% - 48px, 1440px); min-height: 78px; margin: auto; padding: 0 !important; }
+nav a { color: #e5edff !important; transition: background .18s ease, color .18s ease; }
+nav a:hover { color: #fff !important; background: #ffffff16 !important; }
+nav a:first-child { color: #fff !important; }
+nav h1 { font-size: 18px !important; letter-spacing: -.035em !important; }
+nav a span.absolute { background: var(--gold) !important; }
+nav button#btn-logout { color: #fff !important; border: 1px solid #ffffff55 !important; background: #ffffff0b; }
+nav button#btn-logout:hover { border-color: #fff !important; background: #ffffff1c !important; }
+
+main { width: min(100% - 48px, 1440px); min-height: calc(100vh - 158px); margin: 0 auto !important; padding: 42px 0 56px !important; animation: arrive .25s ease-out both; }
+@keyframes arrive { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+main h1, main h2, main h3, main h4 { color: var(--ink); letter-spacing: -.035em; }
+main p { line-height: 1.65; }
+main [class*="text-gray-400"], main [class*="text-gray-500"] { color: var(--muted) !important; }
+main [class*="text-gray-900"], main [class*="text-gray-800"] { color: var(--ink) !important; }
+
+/* Surfaces */
+main [class*="bg-white"] { background-color: var(--paper) !important; }
+main [class*="rounded-2xl"], main [class*="rounded-3xl"] { border-radius: 16px !important; }
+main [class*="bg-white"][class*="border"], main [class*="bg-white"][class*="shadow"] { border-color: var(--line) !important; box-shadow: 0 4px 16px #142b4d0b !important; }
+main [class*="bg-white"][class*="shadow"]:hover { box-shadow: 0 10px 28px #142b4d15 !important; }
+main [class*="bg-gray-50"] { background-color: #f6f8fb !important; }
+
+/* Brand surfaces and actions */
+main [class*="bg-gradient-to"]:not([class*="bg-clip-text"]) { background-image: linear-gradient(125deg, var(--brand-deep), var(--brand)) !important; }
+main [class*="bg-blue-600"], main [class*="bg-blue-700"], main [class*="bg-indigo-600"] { background-color: var(--brand) !important; }
+main [class*="hover:bg-blue-700"]:hover, main [class*="hover:bg-blue-800"]:hover { background-color: var(--brand-deep) !important; }
+main [class*="text-blue-"], main [class*="text-indigo-"] { color: var(--brand) !important; }
+main [class*="border-blue-"], main [class*="border-indigo-"] { border-color: #0033a133 !important; }
+main [class*="bg-blue-50"], main [class*="bg-indigo-50"] { background-color: var(--brand-soft) !important; }
+main [class*="bg-blue-100"], main [class*="bg-indigo-100"] { background-color: #dce6f8 !important; }
+main [class*="ring-blue-"] { --tw-ring-color: #0033a133 !important; }
+main [class*="from-blue-"], main [class*="to-indigo-"], main [class*="via-indigo-"] { --tw-gradient-from: var(--brand) !important; --tw-gradient-to: var(--brand-deep) !important; }
+main button[type="submit"], main a[class*="bg-white"][class*="text-blue-"] { border-radius: 10px !important; }
+main button[type="submit"]:not(:disabled) { cursor: pointer; }
+
+/* The home hero is the visual anchor of the product. */
+main section[class*="bg-gradient-to"]:first-child { position: relative; overflow: hidden; border: 0 !important; box-shadow: 0 18px 44px #0033a126 !important; }
+main section[class*="bg-gradient-to"]:first-child::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--gold); }
+main section[class*="bg-gradient-to"]:first-child [class*="text-blue-"] { color: #e8efff !important; }
+main section[class*="bg-gradient-to"]:first-child [class*="text-transparent"] { color: transparent !important; }
+
+/* Consistent input and table language */
+main input:not([type="checkbox"]):not([type="radio"]), main select, main textarea { width: 100%; color: var(--ink); border: 1px solid #cbd5e1 !important; border-radius: 10px !important; background: #fff !important; box-shadow: none !important; }
+main input::placeholder, main textarea::placeholder { color: #8a96a8 !important; }
+main input:focus, main select:focus, main textarea:focus { border-color: var(--brand) !important; box-shadow: 0 0 0 3px #0033a11c !important; outline: none !important; }
+main input[type="checkbox"] { accent-color: var(--brand); }
+table { width: 100%; border-collapse: separate; border-spacing: 0; }
+thead th { color: #64738a !important; font-size: 11px !important; letter-spacing: .08em; }
+tbody tr:hover { background: #f5f8fc !important; }
+
+footer { background: #fff !important; border-color: var(--line) !important; }
+footer p { color: #758197 !important; }
+
+@media (max-width: 760px) {
+  nav > div { width: calc(100% - 32px); align-items: flex-start; flex-direction: column; gap: 10px; padding: 12px 0 !important; }
+  nav > div > div:last-child { width: 100%; overflow-x: auto; padding-bottom: 3px; }
+  nav > div > div:last-child > a, nav > div > div:last-child > button { flex: 0 0 auto; padding: 9px 11px !important; font-size: 12px !important; }
+  main { width: calc(100% - 32px); padding: 26px 0 40px !important; }
+  main section[class*="bg-gradient-to"]:first-child { padding: 30px 24px !important; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }

@@ -3,7 +3,8 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Registro de Vehículos">
-  <div class="mb-8 mx-auto max-w-3xl flex flex-col items-center">
+  <div class="register-page" data-page="register">
+  <div class="mb-8 mx-auto max-w-3xl flex flex-col items-center register-heading">
     <div class="flex items-center gap-2 text-sm text-gray-400 mb-3">
       <a href="/dashboard" class="hover:text-blue-600 transition-colors"
         >Dashboard</a
@@ -22,11 +23,10 @@ import Layout from "../layouts/Layout.astro";
       <span class="text-gray-600 font-medium">Nuevo Registro</span>
     </div>
     <h2 class="text-3xl font-bold text-gray-900 tracking-tight text-center">
-      Registrar Nuevo Usuario
+      Registrar usuario
     </h2>
     <p class="text-gray-500 mt-2 text-sm text-center">
-      Complete el formulario para registrar un nuevo vehículo en el sistema de
-      estacionamiento.
+      Crea el perfil institucional y asocia su vehículo para habilitar el acceso al campus.
     </p>
   </div>
 
@@ -38,7 +38,7 @@ import Layout from "../layouts/Layout.astro";
   </div>
 
   <div
-    class="bg-white max-w-3xl mx-auto rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 overflow-hidden"
+    class="register-card bg-white max-w-3xl mx-auto rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 overflow-hidden"
   >
     <div
       class="h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600"
@@ -518,6 +518,7 @@ import Layout from "../layouts/Layout.astro";
       de guardar.
     </p>
   </div>
+  </div>
 
   <script>
     const initRegistro = () => {
@@ -574,7 +575,7 @@ import Layout from "../layouts/Layout.astro";
               alertBox.className =
                 "max-w-3xl mx-auto mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm font-medium flex items-center gap-2";
               alertText.innerHTML =
-                "✅ Usuario registrado correctamente en el sistema.";
+                "Usuario registrado correctamente en el sistema.";
             }
             form.reset();
           } else {
@@ -582,7 +583,7 @@ import Layout from "../layouts/Layout.astro";
             if (alertBox && alertText) {
               alertBox.className =
                 "max-w-3xl mx-auto mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2";
-              alertText.innerHTML = `❌ ${errorData.message || "Error al registrar el usuario. Revisa los datos."}`;
+              alertText.innerHTML = errorData.message || "No se pudo registrar el usuario. Revisa los datos.";
             }
           }
         } catch (error) {
@@ -590,7 +591,7 @@ import Layout from "../layouts/Layout.astro";
             alertBox.className =
               "max-w-3xl mx-auto mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2";
             alertText.innerHTML =
-              "❌ No se pudo conectar con el servidor central.";
+              "No se pudo conectar con el servidor central.";
           }
         } finally {
           // Desbloquear botón
@@ -604,3 +605,37 @@ import Layout from "../layouts/Layout.astro";
     document.addEventListener("astro:page-load", initRegistro);
   </script>
 </Layout>
+
+<style is:global>
+  body:has([data-page="register"]) .register-page { max-width:1040px; margin:auto; }
+  body:has([data-page="register"]) .register-heading { max-width:none; align-items:flex-start; margin:2px 0 24px; }
+  body:has([data-page="register"]) .register-heading > div:first-child { color:#65738a; }
+  body:has([data-page="register"]) .register-heading > div:first-child::before { content:"ALTAS INSTITUCIONALES"; display:block; margin-bottom:8px; color:#0033a1; font-size:10px; font-weight:750; letter-spacing:.15em; }
+  body:has([data-page="register"]) .register-heading h2 { margin:0; color:#17243b; font-size:34px; line-height:1.15; text-align:left; }
+  body:has([data-page="register"]) .register-heading p { max-width:580px; margin:8px 0 0; text-align:left; font-size:13px; }
+  body:has([data-page="register"]) .register-heading a { color:#64738a; text-decoration:none; }
+  body:has([data-page="register"]) #registro-alert { max-width:none; }
+  body:has([data-page="register"]) #registro-alert:not(.hidden) { padding:12px 15px; border-radius:7px !important; font-size:12px; }
+  body:has([data-page="register"]) .register-card { max-width:none; border-radius:12px !important; box-shadow:none !important; }
+  body:has([data-page="register"]) .register-card > div:first-child { height:4px; background:#ffce00 !important; }
+  body:has([data-page="register"]) .register-card > div:nth-child(2) { padding:30px 34px; }
+  body:has([data-page="register"]) #registerForm { display:grid; grid-template-columns:1fr 1fr; gap:30px 38px; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(1), body:has([data-page="register"]) #registerForm > div:nth-child(2) { margin:0; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(2) { display:flex; flex-direction:column; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(3) { grid-column:1/-1; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(4) { grid-column:1/-1; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(5) { grid-column:1/-1; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(1) > div:first-child, body:has([data-page="register"]) #registerForm > div:nth-child(2) > div:first-child { padding-bottom:14px; }
+  body:has([data-page="register"]) #registerForm h3 { color:#1b2a42; font-size:15px; }
+  body:has([data-page="register"]) #registerForm h3 + p { color:#748197; font-size:11px; }
+  body:has([data-page="register"]) #registerForm label { color:#405069; font-size:12px; font-weight:600; }
+  body:has([data-page="register"]) #registerForm input, body:has([data-page="register"]) #registerForm select { min-height:44px; padding-top:10px; padding-bottom:10px; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(3) { margin-top:0; padding-top:20px; border-top:1px solid #e6ebf2; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(2) > div:nth-child(3) { padding-top:18px; border-top:1px solid #e6ebf2; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(2) > div:nth-child(3) h3 { margin:0 0 14px; border:0; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(4) { margin:0; border-color:#e6ebf2; }
+  body:has([data-page="register"]) #registerForm > div:nth-child(5) { display:flex; justify-content:flex-end; gap:14px; }
+  body:has([data-page="register"]) #registerForm #btnSubmit { max-width:260px; border-radius:7px !important; box-shadow:none !important; }
+  body:has([data-page="register"]) .register-page > div:last-of-type { max-width:none; padding:14px 17px; border-radius:7px !important; }
+  @media(max-width:700px) { body:has([data-page="register"]) #registerForm { grid-template-columns:1fr; gap:25px; } body:has([data-page="register"]) #registerForm > div:nth-child(3), body:has([data-page="register"]) #registerForm > div:nth-child(4), body:has([data-page="register"]) #registerForm > div:nth-child(5) { grid-column:auto; } body:has([data-page="register"]) .register-card > div:nth-child(2) { padding:22px 18px; } body:has([data-page="register"]) .register-heading h2 { font-size:29px; } }
+</style>
